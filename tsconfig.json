@@ -1,7 +1,5 @@
 {
-  "include": [
-    "packages"
-  ],
+  "include": ["packages"],
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
@@ -15,11 +13,7 @@
     "importHelpers": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "lib": [
-      "DOM",
-      "ESNext",
-      "DOM.Iterable"
-    ],
+    "lib": ["DOM", "ESNext", "DOM.Iterable"],
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": false,
@@ -38,6 +32,6 @@
     "strictPropertyInitialization": true,
     "stripInternal": true,
     "target": "ES2022",
-    "module": "ESNext",
+    "module": "ESNext"
   }
 }
