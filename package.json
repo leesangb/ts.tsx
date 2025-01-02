@@ -1,0 +1,20 @@
+{
+  "name": "tstsx",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "format": "biome format --write .",
+    "check": "biome check ."
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "vitest": "^2.1.8",
+    "@biomejs/biome": "^1.9.4"
+  },
+  "packageManager": "pnpm@9.15.2"
+}
