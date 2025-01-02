@@ -33,7 +33,10 @@ type CreateStackNavigationProps<T extends string> = {
  * }
  * @param entries List of entries
  */
-export const createStackNavigation = <T extends string>({ entries }: CreateStackNavigationProps<T> = {}) => {
+export const createStackNavigation = <T extends string>(
+  displayName: string,
+  { entries }: CreateStackNavigationProps<T> = {},
+) => {
   const StackContext = createStackNavigationContext<T>();
 
   const StackProvider = ({ children, ...props }: PropsWithChildren<StackNavigationContextState<T>>) => {
@@ -100,6 +103,8 @@ export const createStackNavigation = <T extends string>({ entries }: CreateStack
     );
   };
 
+  StackNavigation.displayName = displayName;
+
   type StackTriggerProps<T extends string> = {
     children: (navigate: Pick<StackNavigationContextState<T>, 'push' | 'pop' | 'clear'>) => ReactElement;
   };
@@ -133,9 +138,9 @@ export const createStackNavigation = <T extends string>({ entries }: CreateStack
   StackNavigation.Entry = Entry;
   StackNavigation.DynamicEntry = DynamicEntry;
 
-  return { StackNavigation, useStackNavigation };
+  return [StackNavigation, useStackNavigation] as const;
 };
 
-const { StackNavigation, useStackNavigation } = createStackNavigation();
+const [StackNavigation, useStackNavigation] = createStackNavigation('StackNavigation');
 
 export { StackNavigation, useStackNavigation };

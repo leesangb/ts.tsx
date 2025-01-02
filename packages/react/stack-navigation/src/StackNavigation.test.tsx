@@ -8,7 +8,7 @@ describe('StackNavigation Component Tests', () => {
 
   describe('when entries is not provided', () => {
     // arrange
-    const { StackNavigation } = createStackNavigation({ entries: undefined });
+    const [StackNavigation] = createStackNavigation('StackNavigation', { entries: undefined });
 
     it('should not render Entry when initialStack is not provided', () => {
       // act
@@ -40,7 +40,7 @@ describe('StackNavigation Component Tests', () => {
   describe("when entries is ['first', 'second', 'third'] as const", () => {
     // arrange
     const entries = ['first', 'second', 'third'] as const;
-    const { StackNavigation } = createStackNavigation({ entries });
+    const [StackNavigation] = createStackNavigation('StackNavigation', { entries });
 
     describe('Entry tests', () => {
       it('should render other components even when there is no Entry in StackNavigation', () => {
