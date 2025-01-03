@@ -1,7 +1,24 @@
 {
   "name": "@tstsx/object-diff",
   "version": "0.0.1",
+  "description": "A utility for finding differences between objects",
   "private": true,
+  "license": "MIT",
+  "type": "module",
+  "author": "Sangbin Lee <leesangbin@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leesangb/ts.tsx.git"
+  },
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
   "scripts": {
     "build": "tsc && vite build",
     "clean": "rm -rf .turbo dist",
