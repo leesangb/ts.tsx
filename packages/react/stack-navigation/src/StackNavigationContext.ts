@@ -9,11 +9,5 @@ export type StackNavigationContextState<T extends string> = {
 };
 
 export const createStackNavigationContext = <T extends string>() => {
-  return createContext<StackNavigationContextState<T>>({
-    stack: [],
-    push: () => {},
-    pop: () => {},
-    clear: () => {},
-    popToTop: () => {},
-  });
+  return createContext<StackNavigationContextState<T> | null>(null);
 };

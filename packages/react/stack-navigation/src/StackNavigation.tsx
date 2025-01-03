@@ -46,7 +46,7 @@ export const createStackNavigation = <T extends string>(
   const useStackNavigation = () => {
     const context = useContext(StackContext);
     if (!context) {
-      throw new Error('StackNavigation Provider not found.');
+      throw new Error(`${displayName} not found. Please wrap your component in ${displayName}.`);
     }
 
     return context;

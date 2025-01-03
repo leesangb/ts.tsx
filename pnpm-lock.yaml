@@ -20,9 +20,6 @@ importers:
 
   packages/react/exception-boundary:
     dependencies:
-      '@radix-ui/react-context':
-        specifier: ^1.1.1
-        version: 1.1.1(@types/react@18.3.18)(react@18.3.1)
       react:
         specifier: ^18.0 || ^19.0
         version: 18.3.1
@@ -106,6 +103,9 @@ importers:
       vite:
         specifier: ^6.0.6
         version: 6.0.6
+      vite-plugin-dts:
+        specifier: ^4.4.0
+        version: 4.4.0(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.6)
       vitest:
         specifier: ^2.1.8
         version: 2.1.8(jsdom@25.0.1)
@@ -588,15 +588,6 @@ packages:
 
   '@microsoft/tsdoc@0.15.1':
     resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
-
-  '@radix-ui/react-context@1.1.1':
-    resolution: {integrity: sha512-UASk9zi+crv9WteK/NU4PLvOoL3OuE6BWVKNF6hPRBtYBDXQ2u5iu3O59zUlJiTVvkyuycnqrztsHVJwcK9K+Q==}
-    peerDependencies:
-      '@types/react': '*'
-      react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
 
   '@rollup/pluginutils@5.1.4':
     resolution: {integrity: sha512-USm05zrsFxYLPdWWq+K3STlWiT/3ELn3RcV5hJMghpeAIhxfsUIg6mt12CBJBInWMV4VneoV7SfGv8xIwo2qNQ==}
@@ -1977,12 +1968,6 @@ snapshots:
       resolve: 1.22.10
 
   '@microsoft/tsdoc@0.15.1': {}
-
-  '@radix-ui/react-context@1.1.1(@types/react@18.3.18)(react@18.3.1)':
-    dependencies:
-      react: 18.3.1
-    optionalDependencies:
-      '@types/react': 18.3.18
 
   '@rollup/pluginutils@5.1.4(rollup@4.29.1)':
     dependencies:
