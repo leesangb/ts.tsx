@@ -1,28 +1,28 @@
 import { render, screen, act } from '@testing-library/react';
-import { createTypedErrorBoundary } from './TypedErrorBoundary';
+import { createExceptionBoundary } from './ExceptionBoundary';
 import { describe, expect, it } from 'vitest';
 
-// Define test error types
-type TestError = { type: 'network'; message: string } | { type: 'validation'; field: string; message: string };
+// Define test exception types
+type TestException = { type: 'network'; message: string } | { type: 'validation'; field: string; message: string };
 
-describe('TypedErrorBoundary', () => {
-  const [ErrorBoundary, useErrorBoundary] = createTypedErrorBoundary<TestError>('TestErrorBoundary');
+describe('ExceptionBoundary', () => {
+  const [ExceptionBoundary, useExceptionBoundary] = createExceptionBoundary<TestException>('TestExceptionBoundary');
 
   const TestComponent = () => {
-    const { throwError } = useErrorBoundary('');
+    const { throwException } = useExceptionBoundary();
 
     return (
       <div>
         <button
           type='button'
-          onClick={() => throwError({ type: 'network', message: 'Network error' })}
+          onClick={() => throwException({ type: 'network', message: 'Network error' })}
           data-testid='network-error-btn'
         >
           Throw Network Error
         </button>
         <button
           type='button'
-          onClick={() => throwError({ type: 'validation', field: 'email', message: 'Invalid email' })}
+          onClick={() => throwException({ type: 'validation', field: 'email', message: 'Invalid email' })}
           data-testid='validation-error-btn'
         >
           Throw Validation Error
@@ -34,14 +34,14 @@ describe('TypedErrorBoundary', () => {
 
   it('renders children when there is no error', () => {
     render(
-      <ErrorBoundary
+      <ExceptionBoundary
         fallback={{
           network: () => <div>Network Error</div>,
           validation: () => <div>Validation Error</div>,
         }}
       >
         <TestComponent />
-      </ErrorBoundary>,
+      </ExceptionBoundary>,
     );
 
     expect(screen.getByTestId('content')).toBeInTheDocument();
@@ -49,14 +49,14 @@ describe('TypedErrorBoundary', () => {
 
   it('renders network error fallback when network error is thrown', () => {
     render(
-      <ErrorBoundary
+      <ExceptionBoundary
         fallback={{
-          network: error => <div data-testid='network-fallback'>{error.message}</div>,
+          network: exception => <div data-testid='network-fallback'>{exception.message}</div>,
           validation: () => <div>Validation Error</div>,
         }}
       >
         <TestComponent />
-      </ErrorBoundary>,
+      </ExceptionBoundary>,
     );
 
     act(() => {
@@ -69,18 +69,18 @@ describe('TypedErrorBoundary', () => {
 
   it('renders validation error fallback when validation error is thrown', () => {
     render(
-      <ErrorBoundary
+      <ExceptionBoundary
         fallback={{
           network: () => <div>Network Error</div>,
-          validation: error => (
+          validation: exception => (
             <div data-testid='validation-fallback'>
-              {error.field}: {error.message}
+              {exception.field}: {exception.message}
             </div>
           ),
         }}
       >
         <TestComponent />
-      </ErrorBoundary>,
+      </ExceptionBoundary>,
     );
 
     act(() => {
@@ -93,12 +93,12 @@ describe('TypedErrorBoundary', () => {
 
   it('resets error when resetError is called', () => {
     render(
-      <ErrorBoundary
+      <ExceptionBoundary
         fallback={{
-          network: (error, resetError) => (
+          network: (exception, resetException) => (
             <div>
-              <div data-testid='network-fallback'>{error.message}</div>
-              <button type='button' onClick={resetError} data-testid='reset-btn'>
+              <div data-testid='network-fallback'>{exception.message}</div>
+              <button type='button' onClick={resetException} data-testid='reset-btn'>
                 Reset
               </button>
             </div>
@@ -107,7 +107,7 @@ describe('TypedErrorBoundary', () => {
         }}
       >
         <TestComponent />
-      </ErrorBoundary>,
+      </ExceptionBoundary>,
     );
 
     act(() => {
@@ -125,6 +125,6 @@ describe('TypedErrorBoundary', () => {
   });
 
   it('has correct displayName', () => {
-    expect(ErrorBoundary.displayName).toBe('TestErrorBoundary');
+    expect(ExceptionBoundary.displayName).toBe('TestExceptionBoundary');
   });
 });

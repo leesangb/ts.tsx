@@ -18,13 +18,16 @@ importers:
         specifier: ^2.1.8
         version: 2.1.8(jsdom@25.0.1)
 
-  packages/react/stack-navigation:
+  packages/react/exception-boundary:
     dependencies:
+      '@radix-ui/react-context':
+        specifier: ^1.1.1
+        version: 1.1.1(@types/react@18.3.18)(react@18.3.1)
       react:
-        specifier: ^18.3.1
+        specifier: ^18.0 || ^19.0
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: ^18.0 || ^19.0
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@testing-library/dom':
@@ -57,15 +60,15 @@ importers:
       vite:
         specifier: ^6.0.6
         version: 6.0.6
+      vite-plugin-dts:
+        specifier: ^4.4.0
+        version: 4.4.0(rollup@4.29.1)(typescript@5.7.2)(vite@6.0.6)
       vitest:
         specifier: ^2.1.8
         version: 2.1.8(jsdom@25.0.1)
 
-  packages/react/typed-error-boundary:
+  packages/react/stack-navigation:
     dependencies:
-      '@radix-ui/react-context':
-        specifier: ^1.1.1
-        version: 1.1.1(@types/react@18.3.18)(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
