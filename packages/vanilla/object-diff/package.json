@@ -1,17 +1,16 @@
 {
-  "name": "@tstsx/vanilla",
+  "name": "@tstsx/object-diff",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && vite build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsc --watch",
     "test": "vitest run"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
+    "typescript": "^5.7.2",
     "vite": "^6.0.6",
-    "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "latest"
+    "vitest": "^2.1.8"
   }
 }
