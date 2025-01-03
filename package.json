@@ -9,7 +9,8 @@
     "test": "turbo run test",
     "clean": "turbo run clean",
     "format": "biome format --write .",
-    "check": "biome check ."
+    "check": "biome check .",
+    "create-package": "node scripts/create-package.mjs && pnpm install"
   },
   "devDependencies": {
     "turbo": "^2.3.3",
