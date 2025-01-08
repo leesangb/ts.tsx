@@ -1,90 +1,124 @@
-export type Diff =
-  | {
-      type: 'added' | 'deleted';
-      path: string;
-      value: unknown;
-    }
-  | {
-      type: 'updated';
-      path: string;
-      left: unknown;
-      right: unknown;
-    };
+export type DiffOptions = {
+  // Ignore specific paths
+  ignorePaths?: string[];
+  // Ignore specific types
+  ignoreTypes?: Array<'function' | 'symbol' | 'undefined'>;
+  // Custom comparison function for specific paths
+  compareWith?: Record<string, (left: unknown, right: unknown) => boolean>;
+  // How to handle circular references
+  circularRefs?: 'ignore' | 'mark' | 'error';
+  // Maximum depth to traverse
+  maxDepth?: number;
+};
 
-export const objectDiff = (left: object, right: object): Diff[] => {
+export type ValueDiff = {
+  type: 'added' | 'deleted';
+  path: string[]; // Array-based path for better type safety
+  value: unknown;
+};
+
+export type UpdateDiff = {
+  type: 'updated';
+  path: string[];
+  oldValue: unknown;
+  newValue: unknown;
+};
+
+export type Diff = ValueDiff | UpdateDiff;
+
+export const objectDiff = (left: unknown, right: unknown, options: DiffOptions = {}): Diff[] => {
+  const {
+    ignorePaths = [],
+    ignoreTypes = [],
+    compareWith = {},
+    circularRefs = 'mark',
+    maxDepth = Number.POSITIVE_INFINITY,
+  } = options;
+
   if (left === right) return [];
-  if (!left && right) return [{ type: 'added', path: '', value: right }];
-  if (left && !right) return [{ type: 'deleted', path: '', value: left }];
-  if (!left && !right) return [];
 
   const diffs: Diff[] = [];
-  const visited = new Set<unknown>();
+  const visited = new WeakSet();
 
-  const traverse = (left: object, right: object, path = '') => {
+  const shouldIgnorePath = (path: string[]) => {
+    return ignorePaths.some(ignorePath => path.join('.') === ignorePath || path.join('.').startsWith(`${ignorePath}.`));
+  };
+
+  const shouldIgnoreType = (value: unknown) => {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    return ignoreTypes.includes(typeof value as any);
+  };
+
+  const traverse = (left: unknown, right: unknown, path: string[] = [], depth = 0) => {
+    // Check max depth
+    if (depth > maxDepth) return;
+
+    // Handle primitive values (including null and undefined)
+    if (typeof left !== 'object' || typeof right !== 'object' || left === null || right === null) {
+      if (left !== right && !shouldIgnorePath(path)) {
+        if (right === undefined && left !== undefined) {
+          diffs.push({ type: 'deleted', path, value: left });
+        } else if (left === undefined && right !== undefined) {
+          diffs.push({ type: 'added', path, value: right });
+        } else {
+          diffs.push({ type: 'updated', path, oldValue: left, newValue: right });
+        }
+      }
+      return;
+    }
+
+    // Check for custom comparator
+    const pathStr = path.join('.');
+    if (compareWith[pathStr]?.(left, right)) {
+      return;
+    }
+
+    // Handle circular references
+    if (visited.has(left) || visited.has(right)) {
+      if (circularRefs === 'error') {
+        throw new Error(`Circular reference detected at path: ${path.join('.')}`);
+      }
+      if (circularRefs === 'mark') {
+        diffs.push({
+          type: 'updated',
+          path,
+          oldValue: '[Circular]',
+          newValue: '[Circular]',
+        });
+      }
+      return;
+    }
+
     visited.add(left);
     visited.add(right);
 
-    const keys = new Set([...Object.keys(left), ...Object.keys(right)]);
+    // Get all keys from both objects
+    const leftKeys = Object.keys(left as object);
+    const rightKeys = Object.keys(right as object);
+    const allKeys = [...new Set([...leftKeys, ...rightKeys])];
 
-    const getCurrentPath = (key: string) => (path ? (Array.isArray(left) ? `${path}[${key}]` : `${path}.${key}`) : key);
+    // Compare each key
+    for (const key of allKeys) {
+      const newPath = [...path, key];
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+      const leftValue = (left as any)[key];
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+      const rightValue = (right as any)[key];
 
-    for (const key of keys) {
-      const currentPath = getCurrentPath(key);
-      const l = getValue(left, key);
-      const r = getValue(right, key);
-      if (isNonNullableObject(l) && isNonNullableObject(r) && !visited.has(l) && !visited.has(r)) {
-        if (haveSameConstructor(l, r) || haveAtLeastOneSameKey(l, r) || Array.isArray(l) || Array.isArray(r)) {
-          traverse(l, r, currentPath);
-        } else {
-          diffs.push({ type: 'updated', path: currentPath, left: l, right: r });
+      if (!(key in (right as object))) {
+        if (!shouldIgnorePath(newPath) && !shouldIgnoreType(leftValue)) {
+          diffs.push({ type: 'deleted', path: newPath, value: leftValue });
         }
-      } else if (hasOwnProperty(left, key) && !hasOwnProperty(right, key)) {
-        if (isFunction(l) && !isGetter(left, key)) {
-          break;
+      } else if (!(key in (left as object))) {
+        if (!shouldIgnorePath(newPath) && !shouldIgnoreType(rightValue)) {
+          diffs.push({ type: 'added', path: newPath, value: rightValue });
         }
-        diffs.push({ type: 'deleted', path: currentPath, value: l });
-      } else if (!hasOwnProperty(left, key) && hasOwnProperty(right, key)) {
-        if (isFunction(r) && !isGetter(right, key)) {
-          break;
-        }
-        diffs.push({ type: 'added', path: currentPath, value: r });
-      } else if (l !== r && !isFunction(l) && !isFunction(r)) {
-        diffs.push({
-          type: 'updated',
-          path: currentPath,
-          left: l,
-          right: r,
-        });
+      } else {
+        traverse(leftValue, rightValue, newPath, depth + 1);
       }
     }
   };
+
   traverse(left, right);
   return diffs;
-};
-
-const isNonNullableObject = (value: unknown): value is object => typeof value === 'object' && !!value;
-// biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-const hasOwnProperty = <const T extends string>(obj: unknown, key: T): obj is { [key in T]: unknown } =>
-  Object.prototype.hasOwnProperty.call(obj, key);
-
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const isFunction = (value: unknown): value is (...args: any[]) => any => typeof value === 'function';
-const haveSameConstructor = (left: unknown, right: unknown) =>
-  hasOwnProperty(left, 'constructor') &&
-  isFunction(left.constructor) &&
-  hasOwnProperty(right, 'constructor') &&
-  isFunction(right.constructor) &&
-  left.constructor === right.constructor;
-
-const haveAtLeastOneSameKey = (left: object, right: object) => {
-  const leftKeys = Object.keys(left);
-  const rightKeys = Object.keys(right);
-  return leftKeys.some(key => rightKeys.includes(key));
-};
-
-const getValue = (obj: object, key: string) => (hasOwnProperty(obj, key) ? obj[key] : undefined);
-
-const isGetter = (obj: object, key: string) => {
-  const descriptor = Object.getOwnPropertyDescriptor(obj, key);
-  return descriptor?.get;
 };
