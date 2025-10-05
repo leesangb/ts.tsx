@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const templates = {
   vanilla: {
-    'package.json': (name) => `{
+    'package.json': name => `{
   "name": "@tstsx/${name}",
   "version": "0.0.1",
   "description": "",
@@ -65,7 +65,7 @@ export default defineConfig({
 `,
   },
   react: {
-    'package.json': (name) => `{
+    'package.json': name => `{
   "name": "@tstsx/${name}",
   "version": "0.0.1",
   "description": "",
@@ -154,12 +154,15 @@ export default defineConfig({
 async function createPackage(scope, name) {
   if (!templates[scope]) {
     console.error(`Invalid scope: ${scope}`);
-    console.error('Available scopes:', Object.keys(templates).filter(k => k !== 'common'));
+    console.error(
+      'Available scopes:',
+      Object.keys(templates).filter(k => k !== 'common'),
+    );
     process.exit(1);
   }
 
   const packagePath = join(__dirname, '..', 'packages', scope, name);
-  
+
   // Create package directory and src folder
   await mkdir(packagePath, { recursive: true });
   await mkdir(join(packagePath, 'src'), { recursive: true });
@@ -181,13 +184,16 @@ async function createPackage(scope, name) {
 }
 
 // Get scope and name from command line arguments
-const [,, scope, name] = process.argv;
+const [, , scope, name] = process.argv;
 
 if (!scope || !name) {
   console.error('Usage: node create-package.mjs <scope> <name>');
   console.error('Example: node create-package.mjs vanilla my-package');
-  console.error('Available scopes:', Object.keys(templates).filter(k => k !== 'common'));
+  console.error(
+    'Available scopes:',
+    Object.keys(templates).filter(k => k !== 'common'),
+  );
   process.exit(1);
 }
 
-createPackage(scope, name).catch(console.error); 
+createPackage(scope, name).catch(console.error);
