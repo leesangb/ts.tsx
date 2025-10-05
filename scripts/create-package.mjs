@@ -37,10 +37,10 @@ const templates = {
     "test": "vitest run"
   },
   "devDependencies": {
-    "typescript": "^5.7.2",
-    "vite": "^6.0.6",
-    "vite-plugin-dts": "^4.4.0",
-    "vitest": "^2.1.8"
+    "typescript": "catalog:core",
+    "vite": "catalog:tools",
+    "vite-plugin-dts": "catalog:tools",
+    "vitest": "catalog:test"
   }
 }`,
     'vite.config.ts': `import { defineConfig } from 'vite';
@@ -97,18 +97,18 @@ export default defineConfig({
     "react-dom": "^18.0 || ^19.0"
   },
   "devDependencies": {
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.1.0",
-    "@testing-library/user-event": "^14.5.2",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "@vitejs/plugin-react": "^4.3.4",
-    "jsdom": "^25.0.1",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.6",
-    "vite-plugin-dts": "^4.4.0",
-    "vitest": "^2.1.8"
+    "@testing-library/dom": "catalog:test",
+    "@testing-library/jest-dom": "catalog:test",
+    "@testing-library/react": "catalog:test",
+    "@testing-library/user-event": "catalog:test",
+    "@types/react": "catalog:react18",
+    "@types/react-dom": "catalog:react18",
+    "@vitejs/plugin-react": "catalog:tools",
+    "jsdom": "catalog:test",
+    "typescript": "catalog:core",
+    "vite": "catalog:tools",
+    "vite-plugin-dts": "catalog:tools",
+    "vitest": "catalog:test"
   }
 }`,
     'vite.config.ts': `import react from '@vitejs/plugin-react';

@@ -2,3 +2,33 @@ packages:
     - 'packages/*'
     - 'packages/react/*'
     - 'packages/vanilla/*'
+
+catalogs:
+    react18:
+        react: ^18.3.1
+        react-dom: ^18.3.1
+        "@types/react": "^18.3.18"
+        "@types/react-dom": "^18.3.5"
+
+    react19:
+        react: ^19.2.0
+        react-dom: ^19.2.0
+        "@types/react": "^19.2.0"
+        "@types/react-dom": "^19.2.0"
+
+    core:
+        typescript: ^5.9.2
+
+    test:
+        vitest: ^3.2.4
+        "@testing-library/dom": ^10.4.1
+        "@testing-library/jest-dom": ^6.9.1
+        "@testing-library/react": ^16.3.0
+        "@testing-library/user-event": ^14.6.1
+        jsdom: ^27.0.0
+
+    tools:
+        "@biomejs/biome": ^2.2.5
+        vite: ^7.1.9
+        vite-plugin-dts: ^4.5.4
+        "@vitejs/plugin-react": ^5.0.4

@@ -10,12 +10,13 @@
     "clean": "turbo run clean",
     "format": "biome format --write .",
     "check": "biome check .",
-    "create-package": "node scripts/create-package.mjs && pnpm install"
+    "create-package": "node scripts/create-package.mjs",
+    "postcreate-package": "pnpm i"
   },
   "devDependencies": {
-    "turbo": "^2.3.3",
-    "vitest": "^2.1.8",
-    "@biomejs/biome": "^1.9.4"
+    "@biomejs/biome": "catalog:tools",
+    "turbo": "^2.5.8",
+    "vitest": "catalog:test"
   },
   "packageManager": "pnpm@9.15.2"
 }

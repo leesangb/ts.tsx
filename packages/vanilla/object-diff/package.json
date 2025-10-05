@@ -26,9 +26,9 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "typescript": "^5.7.2",
-    "vite": "^6.0.6",
-    "vite-plugin-dts": "^4.4.0",
-    "vitest": "^2.1.8"
+    "typescript": "catalog:core",
+    "vite": "catalog:tools",
+    "vite-plugin-dts": "catalog:tools",
+    "vitest": "catalog:test"
   }
 }
