@@ -1,6 +1,6 @@
 {
   "name": "tstsx",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Type-safe utilities for React and TypeScript applications",
   "license": "MIT",
   "type": "module",

@@ -1,5 +1,13 @@
 # @tstsx/init
 
+## 0.0.4
+
+### Patch Changes
+
+- 747a9c3: fix: bundle
+- Updated dependencies [747a9c3]
+  - @tstsx/suspensify@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes
