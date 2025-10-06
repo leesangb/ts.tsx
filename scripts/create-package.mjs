@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
@@ -49,8 +49,7 @@ import dts from 'vite-plugin-dts';
 export default defineConfig({
   plugins: [
     dts({
-      include: ['src'],
-      exclude: ['src/*.test.ts'],
+      tsconfigPath: './tsconfig.build.json',
     }),
   ],
   build: {
@@ -119,8 +118,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      include: ['src'],
-      exclude: ['src/*.test.tsx', 'src/test', 'src/*.stories.tsx'],
+      tsconfigPath: './tsconfig.build.json',
     }),
   ],
   build: {
@@ -139,7 +137,12 @@ export default defineConfig({
   },
   common: {
     'tsconfig.json': `{
-  "extends": "../../../tsconfig.json"
+  "extends": "../../../tsconfig.json",
+  "include": ["src"]
+}`,
+    'tsconfig.build.json': `{
+  "extends": "./tsconfig.json",
+  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts", "src/test"]
 }`,
     'vitest.config.ts': `import { defineConfig } from 'vitest/config';
 
@@ -150,6 +153,72 @@ export default defineConfig({
 });`,
   },
 };
+
+async function updateTstsxPackage(scope, name) {
+  const tstsxPath = join(__dirname, '..', 'packages', 'tstsx');
+
+  // 1. Create @tstsx/src/[name].ts export file
+  const exportFilePath = join(tstsxPath, 'src', `${name}.ts`);
+  await writeFile(exportFilePath, `export * from '@tstsx/${name}';\n`);
+  console.log(`  ✓ Created ${name}.ts in @tstsx/src`);
+
+  // 2. Update @tstsx/package.json dependencies
+  const packageJsonPath = join(tstsxPath, 'package.json');
+  const packageJsonContent = await readFile(packageJsonPath, 'utf-8');
+  const packageJson = JSON.parse(packageJsonContent);
+
+  if (!packageJson.dependencies) {
+    packageJson.dependencies = {};
+  }
+  packageJson.dependencies[`@tstsx/${name}`] = 'workspace:*';
+
+  // Sort dependencies alphabetically
+  packageJson.dependencies = Object.fromEntries(
+    Object.entries(packageJson.dependencies).sort(([a], [b]) => a.localeCompare(b)),
+  );
+
+  await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+  console.log(`  ✓ Added @tstsx/${name} to @tstsx/package.json dependencies`);
+
+  // 3. vite.config.ts는 자동으로 src/ 폴더를 읽어서 entry를 생성하므로 수정 불필요
+  console.log(`  ✓ vite.config.ts will automatically detect ${name}.ts`);
+
+  // 4. Update @tstsx/tsconfig.json paths
+  const tstsxTsconfigPath = join(tstsxPath, 'tsconfig.json');
+  const tstsxTsconfigContent = await readFile(tstsxTsconfigPath, 'utf-8');
+  const tstsxTsconfig = JSON.parse(tstsxTsconfigContent);
+
+  if (!tstsxTsconfig.compilerOptions.paths) {
+    tstsxTsconfig.compilerOptions.paths = {};
+  }
+  tstsxTsconfig.compilerOptions.paths[`@tstsx/${name}`] = [`../${scope}/${name}/src`];
+
+  // Sort paths alphabetically
+  tstsxTsconfig.compilerOptions.paths = Object.fromEntries(
+    Object.entries(tstsxTsconfig.compilerOptions.paths).sort(([a], [b]) => a.localeCompare(b)),
+  );
+
+  await writeFile(tstsxTsconfigPath, JSON.stringify(tstsxTsconfig, null, 2) + '\n');
+  console.log(`  ✓ Added @tstsx/${name} to @tstsx/tsconfig.json paths`);
+
+  // 5. Update root tsconfig.json paths
+  const rootTsconfigPath = join(__dirname, '..', 'tsconfig.json');
+  const rootTsconfigContent = await readFile(rootTsconfigPath, 'utf-8');
+  const rootTsconfig = JSON.parse(rootTsconfigContent);
+
+  if (!rootTsconfig.compilerOptions.paths) {
+    rootTsconfig.compilerOptions.paths = {};
+  }
+  rootTsconfig.compilerOptions.paths[`@tstsx/${name}`] = [`./packages/${scope}/${name}/src`];
+
+  // Sort paths alphabetically
+  rootTsconfig.compilerOptions.paths = Object.fromEntries(
+    Object.entries(rootTsconfig.compilerOptions.paths).sort(([a], [b]) => a.localeCompare(b)),
+  );
+
+  await writeFile(rootTsconfigPath, JSON.stringify(rootTsconfig, null, 2) + '\n');
+  console.log(`  ✓ Added @tstsx/${name} to root tsconfig.json paths`);
+}
 
 async function createPackage(scope, name) {
   if (!templates[scope]) {
@@ -181,6 +250,16 @@ async function createPackage(scope, name) {
   }
 
   console.log(`✨ Created new ${scope} package @tstsx/${name} in packages/${scope}/${name}`);
+  console.log(`\n🔗 Integrating with @tstsx package...`);
+
+  await updateTstsxPackage(scope, name);
+
+  console.log(`\n✅ Package created and integrated successfully!`);
+  console.log(`\nNext steps:`);
+  console.log(`  1. cd packages/${scope}/${name}`);
+  console.log(`  2. Implement your package in src/`);
+  console.log(`  3. Run pnpm install to update dependencies`);
+  console.log(`  4. Run pnpm build to build your package`);
 }
 
 // Get scope and name from command line arguments

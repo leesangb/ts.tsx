@@ -1,6 +1,15 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import { resolve } from 'path';
+import { readdirSync } from 'fs';
+
+const srcFiles = readdirSync(resolve(__dirname, 'src'))
+  .filter(file => file.endsWith('.ts'))
+  .map(file => file.replace('.ts', ''));
+
+const entry = Object.fromEntries(srcFiles.map(name => [name, resolve(__dirname, `src/${name}.ts`)]));
+
+const external = ['react', 'react/jsx-runtime', ...srcFiles.map(name => `@tstsx/${name}`)];
 
 export default defineConfig({
   plugins: [
@@ -11,27 +20,11 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: {
-        combined: resolve(__dirname, 'src/combined.ts'),
-        'exception-boundary': resolve(__dirname, 'src/exception-boundary.ts'),
-        init: resolve(__dirname, 'src/init.ts'),
-        'stack-navigation': resolve(__dirname, 'src/stack-navigation.ts'),
-        'object-diff': resolve(__dirname, 'src/object-diff.ts'),
-        suspensify: resolve(__dirname, 'src/suspensify.ts'),
-      },
+      entry,
       formats: ['es'],
     },
     rollupOptions: {
-      external: [
-        'react',
-        'react/jsx-runtime',
-        '@tstsx/combined',
-        '@tstsx/exception-boundary',
-        '@tstsx/init',
-        '@tstsx/stack-navigation',
-        '@tstsx/object-diff',
-        '@tstsx/suspensify',
-      ],
+      external,
     },
   },
 });

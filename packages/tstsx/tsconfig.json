@@ -6,8 +6,9 @@
       "@tstsx/combined": ["../react/combined/src"],
       "@tstsx/exception-boundary": ["../react/exception-boundary/src"],
       "@tstsx/init": ["../react/init/src"],
+      "@tstsx/object-diff": ["../vanilla/object-diff/src"],
       "@tstsx/stack-navigation": ["../react/stack-navigation/src"],
-      "@tstsx/object-diff": ["../vanilla/object-diff/src"]
+      "@tstsx/suspensify": ["../react/suspensify/src"]
     }
   },
   "include": ["src"]
