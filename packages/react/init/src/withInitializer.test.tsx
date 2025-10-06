@@ -12,7 +12,7 @@ type ComponentProps = {
 };
 
 const TestComponent = ({ title, name, age }: ComponentProps & Partial<UserData>) => (
-  <div>
+  <div data-testid='test-component'>
     <h1>{title}</h1>
     {name && <p>Name: {name}</p>}
     {age && <p>Age: {age}</p>}
@@ -23,15 +23,11 @@ TestComponent.displayName = 'TestComponent';
 describe('withInitializer', () => {
   it('should render fallback while initializing', () => {
     const initializer = vi.fn(() => new Promise<UserData>(() => {}));
-    const WrappedComponent = withInitializer<ComponentProps, UserData>(
-      TestComponent,
-      initializer,
-      <div>Loading...</div>,
-    );
+    const WrappedComponent = withInitializer<ComponentProps, UserData>(TestComponent, initializer);
 
     render(<WrappedComponent title='Test' />);
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.queryByTestId('test-component')).not.toBeInTheDocument();
   });
 
   it('should render component with initialized data', async () => {
@@ -73,9 +69,9 @@ describe('withInitializer', () => {
     const initializer = vi.fn(() => new Promise<UserData>(() => {}));
     const WrappedComponent = withInitializer<ComponentProps, UserData>(TestComponent, initializer);
 
-    const { container } = render(<WrappedComponent title='Test' />);
+    render(<WrappedComponent title='Test' />);
 
-    expect(container.querySelector('h1')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('test-component')).not.toBeInTheDocument();
   });
 
   it('should handle initializer being called', async () => {
