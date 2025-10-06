@@ -47,7 +47,7 @@ catalogs:
       version: 5.0.4
     vite:
       specifier: ^7.1.9
-      version: 6.3.6
+      version: 7.1.9
     vite-plugin-dts:
       specifier: ^4.5.4
       version: 4.5.4
@@ -68,6 +68,52 @@ importers:
       turbo:
         specifier: ^2.5.8
         version: 2.5.8
+      vitest:
+        specifier: catalog:test
+        version: 3.2.4(jsdom@27.0.0(postcss@8.5.6))
+
+  packages/react/combined:
+    dependencies:
+      react:
+        specifier: ^18.0 || ^19.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.0 || ^19.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@testing-library/dom':
+        specifier: catalog:test
+        version: 10.4.1
+      '@testing-library/jest-dom':
+        specifier: catalog:test
+        version: 6.9.1
+      '@testing-library/react':
+        specifier: catalog:test
+        version: 16.3.0(@testing-library/dom@10.4.1)(@types/react-dom@18.3.5(@types/react@18.3.18))(@types/react@18.3.18)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@testing-library/user-event':
+        specifier: catalog:test
+        version: 14.6.1(@testing-library/dom@10.4.1)
+      '@types/react':
+        specifier: catalog:react18
+        version: 18.3.18
+      '@types/react-dom':
+        specifier: catalog:react18
+        version: 18.3.5(@types/react@18.3.18)
+      '@vitejs/plugin-react':
+        specifier: catalog:tools
+        version: 5.0.4(vite@6.3.6)
+      jsdom:
+        specifier: catalog:test
+        version: 27.0.0(postcss@8.5.6)
+      typescript:
+        specifier: catalog:core
+        version: 5.9.3
+      vite:
+        specifier: catalog:tools
+        version: 6.3.6
+      vite-plugin-dts:
+        specifier: catalog:tools
+        version: 4.5.4(rollup@4.52.4)(typescript@5.9.3)(vite@6.3.6)
       vitest:
         specifier: catalog:test
         version: 3.2.4(jsdom@27.0.0(postcss@8.5.6))
