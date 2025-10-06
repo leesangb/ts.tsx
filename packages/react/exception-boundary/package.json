@@ -1,6 +1,6 @@
 {
   "name": "@tstsx/exception-boundary",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "ExceptionBoundary for React",
   "license": "MIT",
   "type": "module",
