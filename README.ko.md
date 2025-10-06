@@ -18,7 +18,10 @@ TypeScript + React 유틸리티 라이브러리 모노레포
 
 ### Vanilla 패키지
 
+- **[@tstsx/collections](./packages/vanilla/collections)** - 사용자 정의 해시 함수를 지원하는 HashMap 및 HashSet 구현
 - **[@tstsx/object-diff](./packages/vanilla/object-diff)** - 객체 비교 유틸리티
+- **[@tstsx/poll](./packages/vanilla/poll)** - 조건이 충족될 때까지 폴링하는 유틸리티
+- **[@tstsx/preventable](./packages/vanilla/preventable)** - 이벤트 방지를 위한 상태 관리 유틸리티
 
 ### 통합 패키지
 
@@ -36,7 +39,10 @@ npm install @tstsx/exception-boundary
 npm install @tstsx/init
 npm install @tstsx/stack-navigation
 npm install @tstsx/suspensify
+npm install @tstsx/collections
 npm install @tstsx/object-diff
+npm install @tstsx/poll
+npm install @tstsx/preventable
 ```
 
 ### 전체 패키지 설치
@@ -50,12 +56,15 @@ npm install tstsx
 통합 패키지 사용 예시:
 
 ```tsx
-import { Combined } from '@tstsx/combined';
-import { createExceptionBoundary } from '@tstsx/exception-boundary';
-import { withInitializer } from '@tstsx/init';
-import { createStackNavigation } from '@tstsx/stack-navigation';
-import { suspensify } from '@tstsx/suspensify';
-import { objectDiff } from '@tstsx/object-diff';
+import { Combined } from 'tstsx/combined';
+import { createExceptionBoundary } from 'tstsx/exception-boundary';
+import { withInitializer } from 'tstsx/init';
+import { createStackNavigation } from 'tstsx/stack-navigation';
+import { suspensify } from 'tstsx/suspensify';
+import { HashMap, HashSet } from 'tstsx/collections';
+import { objectDiff } from 'tstsx/object-diff';
+import { poll } from 'tstsx/poll';
+import { preventable } from 'tstsx/preventable';
 ```
 
 ## 개발 환경 설정

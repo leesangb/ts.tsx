@@ -18,7 +18,10 @@ This is a monorepo using pnpm workspaces. It includes the following packages:
 
 ### Vanilla Packages
 
+- **[@tstsx/collections](./packages/vanilla/collections)** - Custom data structures with hash function support (HashMap, HashSet)
 - **[@tstsx/object-diff](./packages/vanilla/object-diff)** - Object comparison utility
+- **[@tstsx/poll](./packages/vanilla/poll)** - Repeatedly execute async functions until a condition is met
+- **[@tstsx/preventable](./packages/vanilla/preventable)** - Event handlers with built-in prevention mechanisms
 
 ### Unified Package
 
@@ -36,7 +39,10 @@ npm install @tstsx/exception-boundary
 npm install @tstsx/init
 npm install @tstsx/stack-navigation
 npm install @tstsx/suspensify
+npm install @tstsx/collections
 npm install @tstsx/object-diff
+npm install @tstsx/poll
+npm install @tstsx/preventable
 ```
 
 ### Install Unified Package
