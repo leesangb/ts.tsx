@@ -1,20 +1,20 @@
 # tstsx
 
-A collection of type-safe utilities for React and TypeScript applications.
+React와 TypeScript 애플리케이션을 위한 타입 안전 유틸리티 모음입니다.
 
-## Why?
+## 왜 사용하나요?
 
-Instead of installing each package separately, `tstsx` provides a single installation point with automatic tree-shaking. Only import what you need, and bundlers will automatically exclude unused code.
+각 패키지를 개별적으로 설치하는 대신, `tstsx`는 자동 트리 쉐이킹을 지원하는 단일 설치 지점을 제공합니다. 필요한 것만 import하면 번들러가 자동으로 사용하지 않는 코드를 제외합니다.
 
-## Installation
+## 설치
 
-You can install the entire collection or individual packages:
+전체 컬렉션 또는 개별 패키지를 설치할 수 있습니다:
 
 ```bash
-# Install all utilities
+# 모든 유틸리티 설치
 npm install tstsx
 
-# Or install individual packages
+# 또는 개별 패키지 설치
 npm install @tstsx/combined
 npm install @tstsx/exception-boundary
 npm install @tstsx/init
@@ -26,26 +26,26 @@ npm install @tstsx/poll
 npm install @tstsx/preventable
 ```
 
-## Usage
+## 사용법
 
-Import from `tstsx` with specific subpaths for optimal tree-shaking:
+최적의 트리 쉐이킹을 위해 `tstsx`에서 특정 서브 경로로 import하세요:
 
 ```tsx
-// React utilities
+// React 유틸리티
 import { Combined } from 'tstsx/combined';
 import { createExceptionBoundary } from 'tstsx/exception-boundary';
 import { withInitializer } from 'tstsx/init';
 import { suspensify } from 'tstsx/suspensify';
 import { createStackNavigation } from 'tstsx/stack-navigation';
 
-// Vanilla utilities
+// Vanilla 유틸리티
 import { HashMap, HashSet } from 'tstsx/collections';
 import { objectDiff } from 'tstsx/object-diff';
 import { poll } from 'tstsx/poll';
 import { preventable } from 'tstsx/preventable';
 ```
 
-Or import from individual packages:
+또는 개별 패키지에서 import하세요:
 
 ```tsx
 import { Combined } from '@tstsx/combined';
@@ -54,13 +54,13 @@ import { HashMap, HashSet } from '@tstsx/collections';
 import { poll } from '@tstsx/poll';
 ```
 
-## Packages
+## 패키지
 
-### React Utilities
+### React 유틸리티
 
 #### Combined
 
-Compose multiple React components with a clean, type-safe API.
+깔끔하고 타입 안전한 API로 여러 React 컴포넌트를 합성합니다.
 
 ```tsx
 import { Combined } from 'tstsx/combined';
@@ -74,11 +74,11 @@ import { Combined } from 'tstsx/combined';
 </Combined>
 ```
 
-[Full documentation](../react/combined/README.md)
+[전체 문서](../react/combined/README.ko.md)
 
 #### Exception Boundary
 
-Type-safe exception boundary with declarative error handling.
+선언적 에러 처리를 지원하는 타입 안전 예외 경계입니다.
 
 ```tsx
 import { createExceptionBoundary } from 'tstsx/exception-boundary';
@@ -91,11 +91,11 @@ const [ExceptionBoundary, useExceptionBoundary] =
   createExceptionBoundary<AppException>('AppExceptionBoundary');
 ```
 
-[Full documentation](../react/exception-boundary/README.md)
+[전체 문서](../react/exception-boundary/README.ko.md)
 
 #### Init
 
-React HOCs for handling async initialization with Suspense.
+Suspense와 함께 비동기 초기화를 처리하는 React HOC입니다.
 
 ```tsx
 import { withInitializer } from 'tstsx/init';
@@ -103,11 +103,11 @@ import { withInitializer } from 'tstsx/init';
 const Component = withInitializer(MyComponent, fetchData);
 ```
 
-[Full documentation](../react/init/README.md)
+[전체 문서](../react/init/README.ko.md)
 
 #### Suspensify
 
-Convert promises into Suspense-compatible resources.
+Promise를 Suspense 호환 리소스로 변환합니다.
 
 ```tsx
 import { suspensify } from 'tstsx/suspensify';
@@ -120,11 +120,11 @@ function UserProfile() {
 }
 ```
 
-[Full documentation](../react/suspensify/README.md)
+[전체 문서](../react/suspensify/README.ko.md)
 
 #### Stack Navigation
 
-Type-safe stack-based navigation for modals, wizards, and more.
+모달, 위저드 등을 위한 타입 안전 스택 기반 네비게이션입니다.
 
 ```tsx
 import { createStackNavigation } from 'tstsx/stack-navigation';
@@ -135,13 +135,13 @@ const [StackNavigation, useStackNavigation] = createStackNavigation(
 );
 ```
 
-[Full documentation](../react/stack-navigation/README.md)
+[전체 문서](../react/stack-navigation/README.ko.md)
 
-### Vanilla Utilities
+### Vanilla 유틸리티
 
 #### Collections
 
-Custom data structures with hash function support for efficient object comparison.
+효율적인 객체 비교를 위한 해시 함수를 지원하는 커스텀 자료구조입니다.
 
 ```tsx
 import { HashMap, HashSet } from 'tstsx/collections';
@@ -155,11 +155,11 @@ const points = new HashSet<Point>({
 });
 ```
 
-[Full documentation](../vanilla/collections/README.md)
+[전체 문서](../vanilla/collections/README.ko.md)
 
 #### Object Diff
 
-Deep object comparison with advanced configuration.
+고급 설정을 지원하는 깊은 객체 비교입니다.
 
 ```tsx
 import { objectDiff } from 'tstsx/object-diff';
@@ -170,11 +170,11 @@ const diffs = objectDiff(before, after, {
 });
 ```
 
-[Full documentation](../vanilla/object-diff/README.md)
+[전체 문서](../vanilla/object-diff/README.ko.md)
 
 #### Poll
 
-Repeatedly execute an async function until a condition is met or timeout occurs.
+조건이 충족되거나 타임아웃이 발생할 때까지 비동기 함수를 반복적으로 실행합니다.
 
 ```tsx
 import { poll } from 'tstsx/poll';
@@ -192,11 +192,11 @@ const result = await poll(
 );
 ```
 
-[Full documentation](../vanilla/poll/README.md)
+[전체 문서](../vanilla/poll/README.ko.md)
 
 #### Preventable
 
-Create event handlers with built-in prevention mechanisms for React events.
+React 이벤트에 대한 내장 방지 메커니즘을 가진 이벤트 핸들러를 생성합니다.
 
 ```tsx
 import { preventable } from 'tstsx/preventable';
@@ -214,18 +214,18 @@ const handleSubmit = preventable(
 <form onSubmit={handleSubmit}>...</form>
 ```
 
-[Full documentation](../vanilla/preventable/README.md)
+[전체 문서](../vanilla/preventable/README.ko.md)
 
-## Tree-Shaking
+## 트리 쉐이킹
 
-This package is designed for optimal tree-shaking. When you import from a specific subpath:
+이 패키지는 최적의 트리 쉐이킹을 위해 설계되었습니다. 특정 서브 경로에서 import하면:
 
 ```tsx
 import { createStackNavigation } from 'tstsx/stack-navigation';
 ```
 
-Your bundler will only include the `stack-navigation` module, not the entire library. This keeps your bundle size minimal.
+번들러는 전체 라이브러리가 아닌 `stack-navigation` 모듈만 포함합니다. 이를 통해 번들 크기를 최소화할 수 있습니다.
 
-## License
+## 라이선스
 
 MIT
