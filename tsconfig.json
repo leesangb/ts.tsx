@@ -2,6 +2,7 @@
   "include": ["packages"],
   "compilerOptions": {
     "paths": {
+      "@tstsx/combined": ["./packages/react/combined/src"],
       "@tstsx/suspensify": ["./packages/react/suspensify/src"],
       "@tstsx/exception-boundary": ["./packages/react/exception-boundary/src"],
       "@tstsx/init": ["./packages/react/init/src"],

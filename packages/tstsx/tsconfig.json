@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "paths": {
+      "@tstsx/combined": ["../react/combined/src"],
       "@tstsx/exception-boundary": ["../react/exception-boundary/src"],
       "@tstsx/init": ["../react/init/src"],
       "@tstsx/stack-navigation": ["../react/stack-navigation/src"],
