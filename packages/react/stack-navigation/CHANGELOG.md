@@ -1,5 +1,11 @@
 # @tstsx/stack-navigation
 
+## 0.0.6
+
+### Patch Changes
+
+- 4400dac: fix version
+
 ## 0.0.5
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@tstsx/suspensify",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Convert promises into Suspense-compatible resources",
   "private": false,
   "license": "MIT",

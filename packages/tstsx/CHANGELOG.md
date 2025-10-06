@@ -1,5 +1,12 @@
 # @tstsx
 
+## 0.0.6
+
+### Patch Changes
+
+- e96eaeb: add collections, poll, preventable
+- 4400dac: fix version
+
 ## 0.0.5
 
 ### Patch Changes
