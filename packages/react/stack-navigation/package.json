@@ -1,6 +1,6 @@
 {
   "name": "@tstsx/stack-navigation",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Stack navigation for React",
   "license": "MIT",
   "type": "module",
