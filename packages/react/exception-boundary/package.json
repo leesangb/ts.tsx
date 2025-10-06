@@ -2,7 +2,6 @@
   "name": "@tstsx/exception-boundary",
   "version": "0.0.1",
   "description": "ExceptionBoundary for React",
-  "private": true,
   "license": "MIT",
   "type": "module",
   "author": "Sangbin Lee <leesangbin@outlook.com>",
@@ -42,5 +41,8 @@
     "vite": "catalog:tools",
     "vite-plugin-dts": "catalog:tools",
     "vitest": "catalog:test"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

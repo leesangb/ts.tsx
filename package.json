@@ -12,13 +12,20 @@
     "check": "biome check .",
     "create-package": "node scripts/create-package.mjs",
     "postcreate-package": "pnpm i",
-    "prepare": "husky"
+    "prepare": "husky",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tools",
+    "@changesets/cli": "^2.29.7",
     "husky": "^9.1.7",
     "turbo": "^2.5.8",
     "vitest": "catalog:test"
   },
-  "packageManager": "pnpm@9.15.2"
+  "packageManager": "pnpm@^10.0.0",
+  "volta": {
+    "node": "24.9.0"
+  }
 }
