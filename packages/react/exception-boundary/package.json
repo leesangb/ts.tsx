@@ -9,6 +9,13 @@
     "type": "git",
     "url": "https://github.com/leesangb/ts.tsx.git"
   },
+  "keywords": [
+    "react",
+    "typescript",
+    "error-boundary",
+    "exception",
+    "error-handling"
+  ],
   "files": [
     "dist"
   ],

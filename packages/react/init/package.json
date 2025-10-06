@@ -9,6 +9,15 @@
     "type": "git",
     "url": "https://github.com/leesangb/ts.tsx.git"
   },
+  "keywords": [
+    "react",
+    "typescript",
+    "initializer",
+    "async",
+    "data-loading",
+    "hoc",
+    "higher-order-component"
+  ],
   "files": [
     "dist"
   ],

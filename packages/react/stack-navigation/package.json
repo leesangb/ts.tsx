@@ -9,6 +9,14 @@
     "type": "git",
     "url": "https://github.com/leesangb/ts.tsx.git"
   },
+  "keywords": [
+    "react",
+    "typescript",
+    "navigation",
+    "stack",
+    "router",
+    "routing"
+  ],
   "files": [
     "dist"
   ],

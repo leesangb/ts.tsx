@@ -1,7 +1,7 @@
 {
   "name": "@tstsx/combined",
   "version": "0.0.1",
-  "description": "",
+  "description": "Combine multiple React components with Suspense and error boundary support",
   "private": true,
   "license": "MIT",
   "type": "module",
@@ -10,6 +10,15 @@
     "type": "git",
     "url": "https://github.com/leesangb/ts.tsx.git"
   },
+  "keywords": [
+    "react",
+    "typescript",
+    "suspense",
+    "error-boundary",
+    "components",
+    "combine",
+    "composition"
+  ],
   "files": [
     "dist"
   ],
