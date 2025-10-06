@@ -1,5 +1,13 @@
 # @tstsx/init
 
+## 0.0.6
+
+### Patch Changes
+
+- 4400dac: fix version
+- Updated dependencies [4400dac]
+  - @tstsx/suspensify@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes
