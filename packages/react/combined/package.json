@@ -1,6 +1,6 @@
 {
   "name": "@tstsx/combined",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Combine multiple React components with Suspense and error boundary support",
   "private": true,
   "license": "MIT",
