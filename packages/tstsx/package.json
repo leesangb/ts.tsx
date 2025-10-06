@@ -1,7 +1,28 @@
 {
   "name": "@tstsx",
   "version": "0.0.1",
+  "description": "Type-safe utilities for React and TypeScript applications",
+  "license": "MIT",
   "type": "module",
+  "author": "Sangbin Lee <leesangbin@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leesangb/ts.tsx.git"
+  },
+  "homepage": "https://github.com/leesangb/ts.tsx#readme",
+  "bugs": {
+    "url": "https://github.com/leesangb/ts.tsx/issues"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "utilities",
+    "type-safe",
+    "suspense",
+    "error-boundary",
+    "navigation",
+    "hooks"
+  ],
   "exports": {
     "./combined": {
       "types": "./dist/combined.d.ts",
