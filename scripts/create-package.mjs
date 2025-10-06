@@ -12,7 +12,6 @@ const templates = {
   "name": "@tstsx/${name}",
   "version": "0.0.1",
   "description": "",
-  "private": true,
   "license": "MIT",
   "type": "module",
   "author": "Sangbin Lee <leesangbin@outlook.com>",
@@ -20,20 +19,25 @@ const templates = {
     "type": "git",
     "url": "https://github.com/leesangb/ts.tsx.git"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+        "default": "./dist/index.js"
       }
     }
   },
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "vite build",
     "clean": "rm -rf .turbo dist",
     "dev": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "catalog:core",
@@ -49,6 +53,7 @@ export default defineConfig({
   plugins: [
     dts({
       tsconfigPath: './tsconfig.build.json',
+      rollupTypes: true,
     }),
   ],
   build: {
@@ -67,7 +72,6 @@ export default defineConfig({
   "name": "@tstsx/${name}",
   "version": "0.0.1",
   "description": "",
-  "private": true,
   "license": "MIT",
   "type": "module",
   "author": "Sangbin Lee <leesangbin@outlook.com>",
@@ -75,20 +79,25 @@ export default defineConfig({
     "type": "git",
     "url": "https://github.com/leesangb/ts.tsx.git"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+        "default": "./dist/index.js"
       }
     }
   },
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "vite build",
     "clean": "rm -rf .turbo dist",
     "dev": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "react": "^18.0 || ^19.0",
@@ -118,6 +127,7 @@ export default defineConfig({
     react(),
     dts({
       tsconfigPath: './tsconfig.build.json',
+      rollupTypes: true,
     }),
   ],
   build: {
@@ -141,7 +151,7 @@ export default defineConfig({
 }`,
     'tsconfig.build.json': `{
   "extends": "./tsconfig.json",
-  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts", "src/test"]
+  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts", "src/test", "test"]
 }`,
     'vitest.config.ts': `import { defineConfig } from 'vitest/config';
 
@@ -161,23 +171,23 @@ async function updateTstsxPackage(scope, name) {
   await writeFile(exportFilePath, `export * from '@tstsx/${name}';\n`);
   console.log(`  ✓ Created ${name}.ts in @tstsx/src`);
 
-  // 2. Update @tstsx/package.json dependencies
+  // 2. Update @tstsx/package.json devDependencies
   const packageJsonPath = join(tstsxPath, 'package.json');
   const packageJsonContent = await readFile(packageJsonPath, 'utf-8');
   const packageJson = JSON.parse(packageJsonContent);
 
-  if (!packageJson.dependencies) {
-    packageJson.dependencies = {};
+  if (!packageJson.devDependencies) {
+    packageJson.devDependencies = {};
   }
-  packageJson.dependencies[`@tstsx/${name}`] = 'workspace:*';
+  packageJson.devDependencies[`@tstsx/${name}`] = 'workspace:*';
 
-  // Sort dependencies alphabetically
-  packageJson.dependencies = Object.fromEntries(
-    Object.entries(packageJson.dependencies).sort(([a], [b]) => a.localeCompare(b)),
+  // Sort devDependencies alphabetically
+  packageJson.devDependencies = Object.fromEntries(
+    Object.entries(packageJson.devDependencies).sort(([a], [b]) => a.localeCompare(b)),
   );
 
   await writeFile(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
-  console.log(`  ✓ Added @tstsx/${name} to @tstsx/package.json dependencies`);
+  console.log(`  ✓ Added @tstsx/${name} to @tstsx/package.json devDependencies`);
 
   // 3. vite.config.ts는 자동으로 src/ 폴더를 읽어서 entry를 생성하므로 수정 불필요
   console.log(`  ✓ vite.config.ts will automatically detect ${name}.ts`);
@@ -200,7 +210,25 @@ async function updateTstsxPackage(scope, name) {
   await writeFile(tstsxTsconfigPath, `${JSON.stringify(tstsxTsconfig, null, 2)}\n`);
   console.log(`  ✓ Added @tstsx/${name} to @tstsx/tsconfig.json paths`);
 
-  // 5. Update root tsconfig.json paths
+  // 5. Update @tstsx/tsconfig.build.json paths
+  const tstsxTsconfigBuildPath = join(tstsxPath, 'tsconfig.build.json');
+  const tstsxTsconfigBuildContent = await readFile(tstsxTsconfigBuildPath, 'utf-8');
+  const tstsxTsconfigBuild = JSON.parse(tstsxTsconfigBuildContent);
+
+  if (!tstsxTsconfigBuild.compilerOptions.paths) {
+    tstsxTsconfigBuild.compilerOptions.paths = {};
+  }
+  tstsxTsconfigBuild.compilerOptions.paths[`@tstsx/${name}`] = [`../${scope}/${name}/dist/index.d.ts`];
+
+  // Sort paths alphabetically
+  tstsxTsconfigBuild.compilerOptions.paths = Object.fromEntries(
+    Object.entries(tstsxTsconfigBuild.compilerOptions.paths).sort(([a], [b]) => a.localeCompare(b)),
+  );
+
+  await writeFile(tstsxTsconfigBuildPath, `${JSON.stringify(tstsxTsconfigBuild, null, 2)}\n`);
+  console.log(`  ✓ Added @tstsx/${name} to @tstsx/tsconfig.build.json paths`);
+
+  // 6. Update root tsconfig.json paths
   const rootTsconfigPath = join(__dirname, '..', 'tsconfig.json');
   const rootTsconfigContent = await readFile(rootTsconfigPath, 'utf-8');
   const rootTsconfig = JSON.parse(rootTsconfigContent);

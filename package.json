@@ -12,7 +12,7 @@
     "format": "biome format --write .",
     "check": "biome check .",
     "create-package": "node scripts/create-package.mjs",
-    "postcreate-package": "pnpm i",
+    "postcreate-package": "node scripts/generate-exports.mjs && pnpm format && pnpm i",
     "prepare": "husky",
     "changeset": "changeset",
     "version-packages": "changeset version",

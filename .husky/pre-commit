@@ -1,2 +1,0 @@
-node scripts/generate-exports.mjs
-git add packages/tstsx/package.json
