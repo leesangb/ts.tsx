@@ -13,7 +13,7 @@ npm install @tstsx/suspensify
 Or as part of the unified package:
 
 ```bash
-npm install @tstsx
+npm install tstsx
 ```
 
 ## Usage

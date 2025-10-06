@@ -9,7 +9,7 @@ Instead of installing each package separately, `@tstsx` provides a single instal
 ## Installation
 
 ```bash
-npm install @tstsx
+npm install tstsx
 ```
 
 ## Usage

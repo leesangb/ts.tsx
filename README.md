@@ -44,7 +44,7 @@ npm install @tstsx/object-diff
 To use all features at once, install the unified package:
 
 ```bash
-npm install @tstsx
+npm install tstsx
 ```
 
 Example usage with the unified package:

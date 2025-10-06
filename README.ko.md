@@ -44,7 +44,7 @@ npm install @tstsx/object-diff
 모든 기능을 한 번에 사용하려면 통합 패키지를 설치하세요:
 
 ```bash
-npm install @tstsx
+npm install tstsx
 ```
 
 통합 패키지 사용 예시:

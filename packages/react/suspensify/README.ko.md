@@ -13,7 +13,7 @@ npm install @tstsx/suspensify
 또는 통합 패키지로:
 
 ```bash
-npm install @tstsx
+npm install tstsx
 ```
 
 ## 사용법
