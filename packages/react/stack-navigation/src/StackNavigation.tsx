@@ -9,29 +9,41 @@ type CreateStackNavigationProps<T extends string> = {
 };
 
 /**
- * Function to create StackNavigation component. If `entries` is specified, child components will receive type support.
- * If `entries` is not specified, child components will treat everything as `string`
+ * Creates a type-safe stack navigation system with React components and hooks.
+ *
+ * Generates a StackNavigation component and hook for managing a stack-based navigation pattern.
+ * Optionally provide an `entries` array for compile-time type safety on navigation values.
+ *
+ * @template T - The type of stack entries (must extend string)
+ * @param displayName - Name for the StackNavigation component (used in error messages)
+ * @param options - Configuration options
+ * @param options.entries - Optional array of allowed entry values for type safety
+ * @returns A tuple containing [StackNavigation component, useStackNavigation hook]
  *
  * @example
- * const { StackNavigation } = createStackNavigation({ entries: ['hello', 'world'] });
+ * ```tsx
+ * const [Navigation, useNavigation] = createStackNavigation('AppNavigation', {
+ *   entries: ['home', 'profile', 'settings'] as const
+ * });
  *
- * const Component = () => {
+ * function App() {
  *   return (
- *    <StackNavigation>
- *      <StackNavigation.Entry value={'hello'}>...</StackNavigation.Entry>
- *                             // ^ OK
- *      <StackNavigation.Entry value={'world'}>...</StackNavigation.Entry>
- *                             // ^ Type 'world' is not assignable to type 'hello' | 'world'
- *      <StackNavigation.Trigger>
- *        {({ push }) => <button onClick={
- *          push('hello');       // OK
- *          push('world');    // Type 'world' is not assignable to type 'hello' | 'world'
- *        }>...</button>}
- *      </StackNavigation.Trigger>
- *    </StackNavigation>
- *  )
+ *     <Navigation initialStack={['home']}>
+ *       <Navigation.Entry value="home">
+ *         <HomePage />
+ *       </Navigation.Entry>
+ *       <Navigation.Entry value="profile">
+ *         <ProfilePage />
+ *       </Navigation.Entry>
+ *       <Navigation.Trigger>
+ *         {({ push }) => (
+ *           <button onClick={() => push('profile')}>Go to Profile</button>
+ *         )}
+ *       </Navigation.Trigger>
+ *     </Navigation>
+ *   );
  * }
- * @param entries List of entries
+ * ```
  */
 export const createStackNavigation = <T extends string>(
   displayName: string,
@@ -43,6 +55,13 @@ export const createStackNavigation = <T extends string>(
     return <StackContext.Provider value={props}>{children}</StackContext.Provider>;
   };
 
+  /**
+   * Hook to access the stack navigation context.
+   * Must be used within the corresponding StackNavigation component.
+   *
+   * @throws {Error} If used outside of the StackNavigation component
+   * @returns Stack navigation state and methods
+   */
   const useStackNavigation = () => {
     const context = useContext(StackContext);
     if (!context) {
@@ -53,14 +72,20 @@ export const createStackNavigation = <T extends string>(
   };
 
   type StackNavigationProps<T extends string> = PropsWithChildren<{
+    /** Initial stack state (defaults to first entry if entries are provided) */
     initialStack?: T[];
+    /** Callback that receives the current stack whenever it changes */
     onChangeStack?: (stack: T[]) => void;
   }>;
 
   /**
-   * @param children Child components to render
-   * @param initialStack Initial stack state
-   * @param onChangeStack Callback that receives the current stack whenever it changes
+   * Stack navigation container component.
+   * Manages a stack of entries and provides navigation methods to children.
+   *
+   * @param props - Component props
+   * @param props.children - Child components to render
+   * @param props.initialStack - Initial stack state
+   * @param props.onChangeStack - Callback that receives the current stack whenever it changes
    */
   const StackNavigation = ({ children, initialStack, onChangeStack }: StackNavigationProps<T>) => {
     const [stack, setStack] = useState<T[]>(() => {
@@ -106,14 +131,50 @@ export const createStackNavigation = <T extends string>(
   StackNavigation.displayName = displayName;
 
   type StackTriggerProps<T extends string> = {
+    /** Render function that receives navigation methods */
     children: (navigate: Pick<StackNavigationContextState<T>, 'push' | 'pop' | 'clear'>) => ReactElement;
   };
+
+  /**
+   * Component that provides access to navigation methods via render props.
+   * Useful for triggering navigation from within the stack.
+   *
+   * @example
+   * ```tsx
+   * <Navigation.Trigger>
+   *   {({ push, pop }) => (
+   *     <>
+   *       <button onClick={() => push('settings')}>Settings</button>
+   *       <button onClick={() => pop()}>Back</button>
+   *     </>
+   *   )}
+   * </Navigation.Trigger>
+   * ```
+   */
   const Trigger = ({ children }: StackTriggerProps<T>) => {
     const { push, pop, clear } = useStackNavigation();
 
     return children({ push, pop, clear });
   };
 
+  /**
+   * Component that renders its children only when it matches the current top stack entry.
+   *
+   * @param props - Component props
+   * @param props.value - The entry value to match against the current stack top
+   * @param props.children - Content to render when this entry is active
+   * @param props.asChild - If true, renders children without a wrapper div
+   *
+   * @example
+   * ```tsx
+   * <Navigation.Entry value="home">
+   *   <HomePage />
+   * </Navigation.Entry>
+   * <Navigation.Entry value="settings" asChild>
+   *   <SettingsPage />
+   * </Navigation.Entry>
+   * ```
+   */
   const Entry = ({ value, children, asChild, ...props }: PropsWithChildren<{ value: T; asChild?: boolean }>) => {
     const { stack } = useStackNavigation();
     const Comp = asChild ? Fragment : 'div';
@@ -122,8 +183,23 @@ export const createStackNavigation = <T extends string>(
   };
 
   type DynamicEntryProps<T extends string> = {
+    /** Render function that receives the current stack entry */
     children: (entry: T) => ReactElement;
   };
+
+  /**
+   * Component that renders based on the current top stack entry.
+   * Useful when you need to render different content based on the current entry.
+   *
+   * @example
+   * ```tsx
+   * <Navigation.DynamicEntry>
+   *   {(current) => (
+   *     <div>Current page: {current}</div>
+   *   )}
+   * </Navigation.DynamicEntry>
+   * ```
+   */
   const DynamicEntry = ({ children, ...props }: DynamicEntryProps<T>) => {
     const { stack } = useStackNavigation();
     const current = stack.at(-1);
@@ -141,6 +217,10 @@ export const createStackNavigation = <T extends string>(
   return [StackNavigation, useStackNavigation] as const;
 };
 
+/**
+ * Default StackNavigation component without predefined entries.
+ * For type-safe entry values, use `createStackNavigation` with the `entries` option.
+ */
 const [StackNavigation, useStackNavigation] = createStackNavigation('StackNavigation');
 
 export { StackNavigation, useStackNavigation };
