@@ -1,6 +1,13 @@
 {
   "include": ["packages"],
   "compilerOptions": {
+    "paths": {
+      "@tstsx/suspensify": ["./packages/react/suspensify/src"],
+      "@tstsx/exception-boundary": ["./packages/react/exception-boundary/src"],
+      "@tstsx/init": ["./packages/react/init/src"],
+      "@tstsx/stack-navigation": ["./packages/react/stack-navigation/src"],
+      "@tstsx/object-diff": ["./packages/vanilla/object-diff/src"]
+    },
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,

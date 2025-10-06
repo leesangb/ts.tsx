@@ -1,5 +1,5 @@
 import { Suspense, type ReactNode } from 'react';
-import { suspensify } from './suspensify';
+import { suspensify } from '@tstsx/suspensify';
 
 /**
  * Higher-order component that initializes a component with async data.
