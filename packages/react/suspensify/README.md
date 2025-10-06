@@ -22,7 +22,7 @@ npm install @tstsx
 import { Suspense } from 'react';
 import { suspensify } from '@tstsx/suspensify';
 
-const fetchUser = suspensify(fetch('/api/user').then(r => r.json()));
+const fetchUser = suspensify(() => fetch('/api/user').then(r => r.json()));
 
 function UserProfile() {
   const user = fetchUser();
@@ -40,7 +40,7 @@ function App() {
 
 ### How It Works
 
-`suspensify` wraps a promise and returns a function that:
+`suspensify` wraps a promise factory function and returns a function that:
 - Throws the promise when still pending (React Suspense catches this)
 - Returns the resolved value when successful
 - Throws the error if the promise rejected
@@ -49,12 +49,12 @@ This allows you to write synchronous-looking code that integrates seamlessly wit
 
 ## API
 
-### `suspensify<T>(promise: Promise<T>): () => T`
+### `suspensify<T>(promiseFactory: () => Promise<T>): () => T`
 
-Converts a Promise into a Suspense-compatible resource.
+Converts a Promise factory into a Suspense-compatible resource.
 
 **Parameters:**
-- `promise` - The promise to convert into a Suspense resource
+- `promiseFactory` - A function that returns the promise to convert into a Suspense resource
 
 **Returns:**
 - A function that returns the resolved value when called
@@ -74,7 +74,7 @@ async function fetchPosts() {
   return response.json();
 }
 
-const getPosts = suspensify(fetchPosts());
+const getPosts = suspensify(() => fetchPosts());
 
 function PostList() {
   const posts = getPosts();

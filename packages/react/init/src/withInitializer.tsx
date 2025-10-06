@@ -41,7 +41,7 @@ export function withInitializer<P extends Record<string, unknown>, R extends Rec
   Component: React.ComponentType<P & Partial<R>>,
   initializer: () => Promise<R>,
 ) {
-  const getData = suspensify(initializer());
+  const getData = suspensify(initializer);
 
   const displayName = Component.displayName ?? 'Anonymous';
 
