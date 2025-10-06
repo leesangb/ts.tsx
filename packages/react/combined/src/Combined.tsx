@@ -38,6 +38,52 @@ const getComponentName = (component: any): string => {
   return component.displayName || component.name;
 };
 
+/**
+ * Composes multiple React components in a nested structure without deep nesting in JSX.
+ *
+ * This component helps avoid "wrapper hell" by allowing you to compose providers and other
+ * wrapping components in a clean, flat array structure. Components are nested from first to last,
+ * with the children rendered at the innermost level.
+ *
+ * @template T - Tuple type of component-props pairs
+ * @param components - Array of tuples where each tuple is [Component, props?]. Props are optional if the component has no required props (excluding children).
+ * @param children - Content to render at the innermost level
+ * @returns A composed component tree with children at the center
+ *
+ * @example
+ * ```tsx
+ * // Without Combined - deeply nested JSX
+ * function App() {
+ *   return (
+ *     <ThemeProvider theme={darkTheme}>
+ *       <AuthProvider>
+ *         <QueryClientProvider client={queryClient}>
+ *           <Router>
+ *             <Layout />
+ *           </Router>
+ *         </QueryClientProvider>
+ *       </AuthProvider>
+ *     </ThemeProvider>
+ *   );
+ * }
+ *
+ * // With Combined - flat array structure
+ * function App() {
+ *   return (
+ *     <Combined
+ *       components={[
+ *         [ThemeProvider, { theme: darkTheme }],
+ *         [AuthProvider],
+ *         [QueryClientProvider, { client: queryClient }],
+ *         [Router],
+ *       ]}
+ *     >
+ *       <Layout />
+ *     </Combined>
+ *   );
+ * }
+ * ```
+ */
 export const Combined = <const T extends ReadonlyArray<[any, any] | [any]>>({
   components,
   children,
