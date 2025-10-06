@@ -1,5 +1,13 @@
 # @tstsx/init
 
+## 0.0.5
+
+### Patch Changes
+
+- 480d826: fix: dts
+- Updated dependencies [480d826]
+  - @tstsx/suspensify@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes

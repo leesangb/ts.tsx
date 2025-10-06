@@ -1,5 +1,11 @@
 # @tstsx/stack-navigation
 
+## 0.0.5
+
+### Patch Changes
+
+- 480d826: fix: dts
+
 ## 0.0.4
 
 ### Patch Changes
