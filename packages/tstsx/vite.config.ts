@@ -9,7 +9,7 @@ const srcFiles = readdirSync(resolve(__dirname, 'src'))
 
 const entry = Object.fromEntries(srcFiles.map(name => [name, resolve(__dirname, `src/${name}.ts`)]));
 
-const external = ['react', 'react/jsx-runtime', ...srcFiles.map(name => `@tstsx/${name}`)];
+const external = ['react', 'react/jsx-runtime'];
 
 export default defineConfig({
   plugins: [

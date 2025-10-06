@@ -309,7 +309,7 @@ importers:
         version: 3.2.4(@types/node@24.7.0)(jsdom@27.0.0(postcss@8.5.6))
 
   packages/tstsx:
-    dependencies:
+    devDependencies:
       '@tstsx/combined':
         specifier: workspace:*
         version: link:../react/combined
@@ -328,7 +328,6 @@ importers:
       '@tstsx/suspensify':
         specifier: workspace:*
         version: link:../react/suspensify
-    devDependencies:
       '@types/react':
         specifier: catalog:react18
         version: 18.3.18

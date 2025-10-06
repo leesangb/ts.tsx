@@ -60,15 +60,13 @@
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0"
   },
-  "dependencies": {
+  "devDependencies": {
     "@tstsx/combined": "workspace:*",
     "@tstsx/exception-boundary": "workspace:*",
     "@tstsx/init": "workspace:*",
     "@tstsx/object-diff": "workspace:*",
     "@tstsx/stack-navigation": "workspace:*",
-    "@tstsx/suspensify": "workspace:*"
-  },
-  "devDependencies": {
+    "@tstsx/suspensify": "workspace:*",
     "@types/react": "catalog:react18",
     "react": "catalog:react18",
     "typescript": "catalog:core",
