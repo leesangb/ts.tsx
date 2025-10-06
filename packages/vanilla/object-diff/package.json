@@ -1,6 +1,6 @@
 {
   "name": "@tstsx/object-diff",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A utility for finding differences between objects",
   "license": "MIT",
   "type": "module",

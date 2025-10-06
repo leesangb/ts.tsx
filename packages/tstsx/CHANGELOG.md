@@ -1,5 +1,18 @@
 # @tstsx
 
+## 0.0.3
+
+### Patch Changes
+
+- 019319b: chore: update docs
+- Updated dependencies [019319b]
+  - @tstsx/combined@0.0.3
+  - @tstsx/exception-boundary@0.0.3
+  - @tstsx/init@0.0.3
+  - @tstsx/stack-navigation@0.0.3
+  - @tstsx/suspensify@0.0.3
+  - @tstsx/object-diff@0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
