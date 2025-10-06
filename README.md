@@ -212,37 +212,15 @@ This builds and publishes to npm.
 
 ### Detailed Publishing Process
 
-```
-┌─────────────────┐
-│ Commit changes  │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ pnpm changeset  │ ← Record changes
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ Push to main    │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────────────┐
-│ GitHub Actions runs     │
-│ - Build                 │
-│ - Create Version PR     │
-└────────┬────────────────┘
-         │
-         ▼
-┌─────────────────────────┐
-│ Merge Version PR        │
-└────────┬────────────────┘
-         │
-         ▼
-┌─────────────────────────┐
-│ Auto-publish to npm     │
-└─────────────────────────┘
+```mermaid
+graph TD
+    A[Commit changes] --> B[pnpm changeset]
+    B --> |Record changes| C[Push to main]
+    C --> D[GitHub Actions runs]
+    D --> E[Build]
+    D --> F[Create Version PR]
+    F --> G[Merge Version PR]
+    G --> H[Auto-publish to npm]
 ```
 
 ## Creating New Packages
