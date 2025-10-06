@@ -1,5 +1,11 @@
 # @tstsx/exception-boundary
 
+## 0.0.4
+
+### Patch Changes
+
+- 747a9c3: fix: bundle
+
 ## 0.0.3
 
 ### Patch Changes
