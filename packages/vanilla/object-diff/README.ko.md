@@ -1,30 +1,30 @@
-English | [한국어](./README.ko.md)
+[English](./README.md) | 한국어
 
 # @tstsx/object-diff
 
-Deep object comparison utility with advanced configuration options.
+고급 설정 옵션을 제공하는 깊은 객체 비교 유틸리티.
 
-## Why?
+## 왜 사용하나요?
 
-Comparing objects in JavaScript is notoriously tricky. This library provides:
+JavaScript에서 객체를 비교하는 것은 악명 높게 까다롭습니다. 이 라이브러리는 다음을 제공합니다:
 
-- **Deep comparison**: Recursively compares nested objects and arrays
-- **Detailed diff output**: Know exactly what changed, where it changed, and how
-- **Flexible configuration**: Ignore paths, types, handle circular references, and custom comparisons
-- **Type-safe**: Full TypeScript support with detailed type information
-- **Performance**: Efficient traversal with depth limiting and circular reference detection
+- **깊은 비교**: 중첩된 객체와 배열을 재귀적으로 비교
+- **상세한 차이 출력**: 무엇이, 어디서, 어떻게 변경되었는지 정확히 파악
+- **유연한 설정**: 경로 무시, 타입 무시, 순환 참조 처리, 사용자 정의 비교
+- **타입 안전**: 상세한 타입 정보와 완전한 TypeScript 지원
+- **성능**: 깊이 제한과 순환 참조 감지를 통한 효율적인 탐색
 
-Perfect for: state management, change tracking, debugging, testing, form validation, and audit logging.
+상태 관리, 변경 추적, 디버깅, 테스팅, 폼 검증, 감사 로깅에 완벽합니다.
 
-## Installation
+## 설치
 
 ```bash
 npm install @tstsx/object-diff
 ```
 
-## Usage
+## 사용법
 
-### Basic Example
+### 기본 예제
 
 ```typescript
 import { objectDiff } from '@tstsx/object-diff';
@@ -55,7 +55,7 @@ console.log(diffs);
 // ]
 ```
 
-### Detecting Additions and Deletions
+### 추가 및 삭제 감지
 
 ```typescript
 const before = { a: 1, b: 2 };
@@ -68,7 +68,7 @@ const diffs = objectDiff(before, after);
 // ]
 ```
 
-### Ignoring Paths
+### 경로 무시
 
 ```typescript
 const before = { name: 'John', age: 30, updatedAt: '2024-01-01' };
@@ -77,10 +77,10 @@ const after = { name: 'John', age: 31, updatedAt: '2024-01-02' };
 const diffs = objectDiff(before, after, {
   ignorePaths: ['updatedAt']
 });
-// Only age change is reported, updatedAt is ignored
+// age 변경만 보고되고, updatedAt은 무시됨
 ```
 
-### Ignoring Types
+### 타입 무시
 
 ```typescript
 const before = { 
@@ -98,10 +98,10 @@ const after = {
 const diffs = objectDiff(before, after, {
   ignoreTypes: ['function']
 });
-// Only name and config.enabled changes are reported
+// name과 config.enabled 변경만 보고됨
 ```
 
-### Custom Comparisons
+### 사용자 정의 비교
 
 ```typescript
 const before = { createdAt: new Date('2024-01-01') };
@@ -110,17 +110,17 @@ const after = { createdAt: new Date('2024-01-01') };
 const diffs = objectDiff(before, after, {
   compareWith: {
     'createdAt': (left, right) => {
-      // Custom date comparison
+      // 사용자 정의 날짜 비교
       return left instanceof Date && 
              right instanceof Date && 
              left.getTime() === right.getTime();
     }
   }
 });
-// No diffs - dates are considered equal
+// 차이 없음 - 날짜가 동일한 것으로 간주됨
 ```
 
-### Handling Circular References
+### 순환 참조 처리
 
 ```typescript
 const obj1: any = { a: 1 };
@@ -129,21 +129,21 @@ obj1.self = obj1;
 const obj2: any = { a: 1 };
 obj2.self = obj2;
 
-// Default: Mark circular refs
+// 기본값: 순환 참조 표시
 const diffs1 = objectDiff(obj1, obj2, { circularRefs: 'mark' });
 
-// Ignore circular refs
+// 순환 참조 무시
 const diffs2 = objectDiff(obj1, obj2, { circularRefs: 'ignore' });
 
-// Throw error on circular refs
+// 순환 참조 시 에러 발생
 try {
   objectDiff(obj1, obj2, { circularRefs: 'error' });
 } catch (e) {
-  console.error('Circular reference detected!');
+  console.error('순환 참조 감지!');
 }
 ```
 
-### Limiting Depth
+### 깊이 제한
 
 ```typescript
 const deeply = {
@@ -159,45 +159,45 @@ const deeply = {
 };
 
 const diffs = objectDiff(deeply, {}, { maxDepth: 2 });
-// Only compares up to level2, ignores level3 and deeper
+// level2까지만 비교하고, level3 이하는 무시
 ```
 
 ## API
 
 ### `objectDiff(left, right, options?)`
 
-Compares two values and returns an array of differences.
+두 값을 비교하고 차이점 배열을 반환합니다.
 
-**Parameters:**
-- `left`: First value to compare
-- `right`: Second value to compare
-- `options`: (Optional) Configuration object
+**매개변수:**
+- `left`: 비교할 첫 번째 값
+- `right`: 비교할 두 번째 값
+- `options`: (선택사항) 설정 객체
 
-**Returns:**
-- `Diff[]`: Array of difference objects
+**반환값:**
+- `Diff[]`: 차이 객체 배열
 
-### Options
+### 옵션
 
 ```typescript
 type DiffOptions = {
-  // Ignore specific paths (e.g., ['user.password', 'metadata'])
+  // 특정 경로 무시 (예: ['user.password', 'metadata'])
   ignorePaths?: string[];
   
-  // Ignore specific types (e.g., ['function', 'symbol'])
+  // 특정 타입 무시 (예: ['function', 'symbol'])
   ignoreTypes?: Array<'function' | 'symbol' | 'undefined'>;
   
-  // Custom comparison functions for specific paths
+  // 특정 경로에 대한 사용자 정의 비교 함수
   compareWith?: Record<string, (left: unknown, right: unknown) => boolean>;
   
-  // How to handle circular references: 'ignore' | 'mark' | 'error'
+  // 순환 참조 처리 방법: 'ignore' | 'mark' | 'error'
   circularRefs?: 'ignore' | 'mark' | 'error';
   
-  // Maximum depth to traverse (default: Infinity)
+  // 탐색할 최대 깊이 (기본값: Infinity)
   maxDepth?: number;
 };
 ```
 
-### Diff Types
+### 차이 타입
 
 ```typescript
 type ValueDiff = {
@@ -216,9 +216,9 @@ type UpdateDiff = {
 type Diff = ValueDiff | UpdateDiff;
 ```
 
-## Real-World Examples
+## 실제 사용 예제
 
-### Form Change Tracking
+### 폼 변경 추적
 
 ```typescript
 function FormEditor({ initialData }) {
@@ -233,14 +233,14 @@ function FormEditor({ initialData }) {
   return (
     <div>
       <form>...</form>
-      <button disabled={!hasChanges}>Save Changes</button>
-      {hasChanges && <div>{changes.length} changes pending</div>}
+      <button disabled={!hasChanges}>변경사항 저장</button>
+      {hasChanges && <div>{changes.length}개의 변경사항 대기 중</div>}
     </div>
   );
 }
 ```
 
-### Audit Logging
+### 감사 로깅
 
 ```typescript
 function saveUser(userId, oldData, newData) {
@@ -263,7 +263,7 @@ function saveUser(userId, oldData, newData) {
 }
 ```
 
-### State Debugging
+### 상태 디버깅
 
 ```typescript
 function useDebugState(name, state) {
@@ -272,7 +272,7 @@ function useDebugState(name, state) {
   useEffect(() => {
     const diffs = objectDiff(prevState.current, state);
     if (diffs.length > 0) {
-      console.group(`[${name}] State changed`);
+      console.group(`[${name}] 상태 변경됨`);
       diffs.forEach(diff => {
         console.log(diff.path.join('.'), diff);
       });
@@ -283,6 +283,6 @@ function useDebugState(name, state) {
 }
 ```
 
-## License
+## 라이선스
 
 MIT

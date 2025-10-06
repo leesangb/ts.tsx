@@ -1,3 +1,5 @@
+English | [한국어](./README.ko.md)
+
 # @tstsx/suspensify
 
 Convert promises into Suspense-compatible resources for React.

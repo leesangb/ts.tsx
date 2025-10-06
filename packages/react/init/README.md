@@ -1,5 +1,7 @@
 # @tstsx/init
 
+English | [한국어](./README.ko.md)
+
 React HOCs for handling async initialization with Suspense integration.
 
 ## Why?

@@ -1,3 +1,5 @@
+English | [한국어](./README.ko.md)
+
 # @tstsx/stack-navigation
 
 Type-safe stack-based navigation for React applications.

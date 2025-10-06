@@ -1,5 +1,7 @@
 # @tstsx/exception-boundary
 
+English | [한국어](./README.ko.md)
+
 Type-safe exception boundary for React applications with declarative error handling.
 
 ## Why?
