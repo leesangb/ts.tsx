@@ -40,6 +40,10 @@
       "types": "./dist/object-diff.d.ts",
       "import": "./dist/object-diff.js"
     },
+    "./poll": {
+      "types": "./dist/poll.d.ts",
+      "import": "./dist/poll.js"
+    },
     "./preventable": {
       "types": "./dist/preventable.d.ts",
       "import": "./dist/preventable.js"
@@ -69,6 +73,7 @@
     "@tstsx/exception-boundary": "workspace:*",
     "@tstsx/init": "workspace:*",
     "@tstsx/object-diff": "workspace:*",
+    "@tstsx/poll": "workspace:*",
     "@tstsx/preventable": "workspace:*",
     "@tstsx/stack-navigation": "workspace:*",
     "@tstsx/suspensify": "workspace:*",
