@@ -307,6 +307,9 @@ importers:
 
   packages/tstsx:
     dependencies:
+      '@tstsx/combined':
+        specifier: workspace:*
+        version: link:../react/combined
       '@tstsx/exception-boundary':
         specifier: workspace:*
         version: link:../react/exception-boundary
