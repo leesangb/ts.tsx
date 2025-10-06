@@ -6,6 +6,7 @@
       "@tstsx/exception-boundary": ["../react/exception-boundary/dist/index.d.ts"],
       "@tstsx/init": ["../react/init/dist/index.d.ts"],
       "@tstsx/object-diff": ["../vanilla/object-diff/dist/index.d.ts"],
+      "@tstsx/preventable": ["../vanilla/preventable/dist/index.d.ts"],
       "@tstsx/stack-navigation": ["../react/stack-navigation/dist/index.d.ts"],
       "@tstsx/suspensify": ["../react/suspensify/dist/index.d.ts"]
     }

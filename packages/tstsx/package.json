@@ -40,6 +40,10 @@
       "types": "./dist/object-diff.d.ts",
       "import": "./dist/object-diff.js"
     },
+    "./preventable": {
+      "types": "./dist/preventable.d.ts",
+      "import": "./dist/preventable.js"
+    },
     "./stack-navigation": {
       "types": "./dist/stack-navigation.d.ts",
       "import": "./dist/stack-navigation.js"
@@ -65,6 +69,7 @@
     "@tstsx/exception-boundary": "workspace:*",
     "@tstsx/init": "workspace:*",
     "@tstsx/object-diff": "workspace:*",
+    "@tstsx/preventable": "workspace:*",
     "@tstsx/stack-navigation": "workspace:*",
     "@tstsx/suspensify": "workspace:*",
     "@types/react": "catalog:react18",

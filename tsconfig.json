@@ -6,6 +6,7 @@
       "@tstsx/exception-boundary": ["./packages/react/exception-boundary/src"],
       "@tstsx/init": ["./packages/react/init/src"],
       "@tstsx/object-diff": ["./packages/vanilla/object-diff/src"],
+      "@tstsx/preventable": ["./packages/vanilla/preventable/src"],
       "@tstsx/stack-navigation": ["./packages/react/stack-navigation/src"],
       "@tstsx/suspensify": ["./packages/react/suspensify/src"]
     },
