@@ -56,12 +56,15 @@ npm install tstsx
 Example usage with the unified package:
 
 ```tsx
-import { Combined } from '@tstsx/combined';
-import { createExceptionBoundary } from '@tstsx/exception-boundary';
-import { withInitializer } from '@tstsx/init';
-import { createStackNavigation } from '@tstsx/stack-navigation';
-import { suspensify } from '@tstsx/suspensify';
-import { objectDiff } from '@tstsx/object-diff';
+import { Combined } from 'tstsx/combined';
+import { createExceptionBoundary } from 'tstsx/exception-boundary';
+import { withInitializer } from 'tstsx/init';
+import { createStackNavigation } from 'tstsx/stack-navigation';
+import { suspensify } from 'tstsx/suspensify';
+import { HashMap, HashSet } from 'tstsx/collections';
+import { objectDiff } from 'tstsx/object-diff';
+import { poll } from 'tstsx/poll';
+import { preventable } from 'tstsx/preventable';
 ```
 
 ## Development Setup
