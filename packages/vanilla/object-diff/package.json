@@ -24,7 +24,8 @@
     "build": "tsc && vite build",
     "clean": "rm -rf .turbo dist",
     "dev": "vitest",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "typescript": "catalog:core",
