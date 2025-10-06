@@ -10,9 +10,11 @@ This is a monorepo using pnpm workspaces. It includes the following packages:
 
 ### React Packages
 
+- **[@tstsx/combined](./packages/react/combined)** - Compose multiple React components with a clean, type-safe API
 - **[@tstsx/exception-boundary](./packages/react/exception-boundary)** - Type-safe React Error Boundary for declarative exception handling
 - **[@tstsx/init](./packages/react/init)** - HOC for async initialization with Suspense integration
 - **[@tstsx/stack-navigation](./packages/react/stack-navigation)** - Stack-based navigation component
+- **[@tstsx/suspensify](./packages/react/suspensify)** - Convert promises into Suspense-compatible resources
 
 ### Vanilla Packages
 
@@ -29,9 +31,11 @@ This is a monorepo using pnpm workspaces. It includes the following packages:
 You can install only the packages you need:
 
 ```bash
+npm install @tstsx/combined
 npm install @tstsx/exception-boundary
 npm install @tstsx/init
 npm install @tstsx/stack-navigation
+npm install @tstsx/suspensify
 npm install @tstsx/object-diff
 ```
 
@@ -46,9 +50,11 @@ npm install @tstsx
 Example usage with the unified package:
 
 ```tsx
+import { Combined } from '@tstsx/combined';
 import { createExceptionBoundary } from '@tstsx/exception-boundary';
 import { withInitializer } from '@tstsx/init';
 import { createStackNavigation } from '@tstsx/stack-navigation';
+import { suspensify } from '@tstsx/suspensify';
 import { objectDiff } from '@tstsx/object-diff';
 ```
 

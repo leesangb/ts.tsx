@@ -10,9 +10,11 @@ TypeScript + React 유틸리티 라이브러리 모노레포
 
 ### React 패키지
 
+- **[@tstsx/combined](./packages/react/combined)** - 깔끔하고 타입 안전한 API로 여러 React 컴포넌트 조합
 - **[@tstsx/exception-boundary](./packages/react/exception-boundary)** - 타입 안전한 예외 처리를 위한 React Error Boundary
 - **[@tstsx/init](./packages/react/init)** - 비동기 초기화 및 Suspense 통합을 위한 HOC
 - **[@tstsx/stack-navigation](./packages/react/stack-navigation)** - 스택 기반 내비게이션 컴포넌트
+- **[@tstsx/suspensify](./packages/react/suspensify)** - Promise를 Suspense 호환 리소스로 변환
 
 ### Vanilla 패키지
 
@@ -29,9 +31,11 @@ TypeScript + React 유틸리티 라이브러리 모노레포
 필요한 패키지만 개별적으로 설치할 수 있습니다:
 
 ```bash
+npm install @tstsx/combined
 npm install @tstsx/exception-boundary
 npm install @tstsx/init
 npm install @tstsx/stack-navigation
+npm install @tstsx/suspensify
 npm install @tstsx/object-diff
 ```
 
@@ -46,9 +50,11 @@ npm install @tstsx
 통합 패키지 사용 예시:
 
 ```tsx
+import { Combined } from '@tstsx/combined';
 import { createExceptionBoundary } from '@tstsx/exception-boundary';
 import { withInitializer } from '@tstsx/init';
 import { createStackNavigation } from '@tstsx/stack-navigation';
+import { suspensify } from '@tstsx/suspensify';
 import { objectDiff } from '@tstsx/object-diff';
 ```
 
