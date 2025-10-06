@@ -13,7 +13,7 @@ export default defineConfig({
     lib: {
       entry: 'src/index.ts',
       formats: ['es'],
-      fileName: 'index',
+      fileName: () => 'index.mjs',
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
