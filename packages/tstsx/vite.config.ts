@@ -14,8 +14,8 @@ const external = ['react', 'react/jsx-runtime'];
 export default defineConfig({
   plugins: [
     dts({
-      insertTypesEntry: true,
-      rollupTypes: false,
+      tsconfigPath: './tsconfig.build.json',
+      rollupTypes: true,
     }),
   ],
   build: {
