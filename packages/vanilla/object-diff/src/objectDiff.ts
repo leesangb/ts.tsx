@@ -109,7 +109,6 @@ export const objectDiff = (left: unknown, right: unknown, options: DiffOptions =
   };
 
   const shouldIgnoreType = (value: unknown) => {
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     return ignoreTypes.includes(typeof value as any);
   };
 
@@ -158,9 +157,7 @@ export const objectDiff = (left: unknown, right: unknown, options: DiffOptions =
 
     for (const key of allKeys) {
       const newPath = [...path, key];
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       const leftValue = (left as any)[key];
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       const rightValue = (right as any)[key];
 
       if (!(key in (right as object))) {

@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -177,7 +176,7 @@ async function updateTstsxPackage(scope, name) {
     Object.entries(packageJson.dependencies).sort(([a], [b]) => a.localeCompare(b)),
   );
 
-  await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+  await writeFile(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
   console.log(`  ✓ Added @tstsx/${name} to @tstsx/package.json dependencies`);
 
   // 3. vite.config.ts는 자동으로 src/ 폴더를 읽어서 entry를 생성하므로 수정 불필요
@@ -198,7 +197,7 @@ async function updateTstsxPackage(scope, name) {
     Object.entries(tstsxTsconfig.compilerOptions.paths).sort(([a], [b]) => a.localeCompare(b)),
   );
 
-  await writeFile(tstsxTsconfigPath, JSON.stringify(tstsxTsconfig, null, 2) + '\n');
+  await writeFile(tstsxTsconfigPath, `${JSON.stringify(tstsxTsconfig, null, 2)}\n`);
   console.log(`  ✓ Added @tstsx/${name} to @tstsx/tsconfig.json paths`);
 
   // 5. Update root tsconfig.json paths
@@ -216,7 +215,7 @@ async function updateTstsxPackage(scope, name) {
     Object.entries(rootTsconfig.compilerOptions.paths).sort(([a], [b]) => a.localeCompare(b)),
   );
 
-  await writeFile(rootTsconfigPath, JSON.stringify(rootTsconfig, null, 2) + '\n');
+  await writeFile(rootTsconfigPath, `${JSON.stringify(rootTsconfig, null, 2)}\n`);
   console.log(`  ✓ Added @tstsx/${name} to root tsconfig.json paths`);
 }
 

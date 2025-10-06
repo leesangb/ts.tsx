@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 import { describe, expect, it } from 'vitest';
 import { Combined } from './Combined';
 

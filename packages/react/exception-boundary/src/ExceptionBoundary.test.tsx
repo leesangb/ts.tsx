@@ -1,6 +1,6 @@
-import { render, screen, act } from '@testing-library/react';
-import { createExceptionBoundary } from './ExceptionBoundary';
+import { act, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { createExceptionBoundary } from './ExceptionBoundary';
 
 // Define test exception types
 type TestException = { type: 'network'; message: string } | { type: 'validation'; field: string; message: string };

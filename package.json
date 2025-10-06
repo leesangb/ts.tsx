@@ -21,6 +21,7 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:tools",
     "@changesets/cli": "^2.29.7",
+    "@types/node": "^24.7.0",
     "husky": "^9.1.7",
     "turbo": "^2.5.8",
     "vitest": "catalog:test"

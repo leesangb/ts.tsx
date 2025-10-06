@@ -1,5 +1,5 @@
 import { Fragment, type PropsWithChildren, type ReactElement, useContext, useEffect, useRef, useState } from 'react';
-import { type StackNavigationContextState, createStackNavigationContext } from './StackNavigationContext';
+import { createStackNavigationContext, type StackNavigationContextState } from './StackNavigationContext';
 
 type CreateStackNavigationProps<T extends string> = {
   /**

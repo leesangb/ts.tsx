@@ -1,6 +1,6 @@
-import { readdirSync, writeFileSync, readFileSync } from 'fs';
-import { resolve, join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -24,7 +24,7 @@ for (const file of files) {
 
 packageJson.exports = exports;
 
-writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
 
 console.log('✓ Updated package.json exports:');
 console.log(Object.keys(exports).join('\n'));

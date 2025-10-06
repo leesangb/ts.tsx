@@ -1,4 +1,4 @@
-import { ComponentProps, ComponentType, PropsWithChildren, ReactNode } from 'react';
+import type { ComponentProps, ComponentType, PropsWithChildren, ReactNode } from 'react';
 
 type GetRequiredKeys<T extends object> = {
   [K in keyof T]-?: undefined extends T[K] ? never : K;
@@ -47,23 +47,20 @@ export const Combined = <const T extends ReadonlyArray<[any, any] | [any]>>({
 }) => {
   return (
     <>
-      {(components as Array<[(props: any) => ReactNode, any]>).reduceRight(
-        (acc, [Component, props = {}], index) => {
-          const componentName = getComponentName(Component);
-          return (
-            <Component
-              key={`${componentName}-${
-                // biome-ignore lint/suspicious/noArrayIndexKey: components array is static and won't reorder
-                index
-              }`}
-              {...props}
-            >
-              {acc}
-            </Component>
-          );
-        },
-        <>{children}</>,
-      )}
+      {(components as Array<[(props: any) => ReactNode, any]>).reduceRight((acc, [Component, props = {}], index) => {
+        const componentName = getComponentName(Component);
+        return (
+          <Component
+            key={`${componentName}-${
+              // biome-ignore lint/suspicious/noArrayIndexKey: components array is static and won't reorder
+              index
+            }`}
+            {...props}
+          >
+            {acc}
+          </Component>
+        );
+      }, children)}
     </>
   );
 };

@@ -1,6 +1,6 @@
-import { Suspense, Component, type ReactNode } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { Component, type ReactNode, Suspense } from 'react';
+import { describe, expect, it } from 'vitest';
 import { suspensify } from './suspensify';
 
 class ErrorBoundary extends Component<

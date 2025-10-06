@@ -1,4 +1,4 @@
-import { useState, type ReactNode, createContext, useContext } from 'react';
+import { createContext, type ReactNode, useContext, useState } from 'react';
 
 /**
  * Creates a type-safe exception boundary with a custom hook for throwing exceptions.

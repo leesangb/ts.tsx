@@ -1,7 +1,7 @@
+import { readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { resolve } from 'path';
-import { readdirSync } from 'fs';
 
 const srcFiles = readdirSync(resolve(__dirname, 'src'))
   .filter(file => file.endsWith('.ts'))

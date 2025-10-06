@@ -25,7 +25,6 @@ describe('objectDiff', () => {
       [undefined, undefined],
       [null, null],
     ])('when left is %s, right is %s', (left, right) => {
-      // biome-ignore lint/suspicious/noExplicitAny: for testing
       const result = objectDiff(left as any, right as any);
 
       expect(result).toEqual([]);
@@ -131,7 +130,6 @@ describe('objectDiff', () => {
 
   describe('should return an array with "updated" diff', () => {
     test('when left object is null and right object is not null', () => {
-      // biome-ignore lint/suspicious/noExplicitAny: for testing
       const left = null as any;
       const right = { prop1: 'value1' };
 
@@ -142,7 +140,6 @@ describe('objectDiff', () => {
 
     test('when right object is null and left object is not null', () => {
       const left = { prop1: 'value1' };
-      // biome-ignore lint/suspicious/noExplicitAny: for testing
       const right = null as any;
 
       const result = objectDiff(left, right);
