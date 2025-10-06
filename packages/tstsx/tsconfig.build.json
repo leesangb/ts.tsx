@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
+      "@tstsx/collections": ["../vanilla/collections/dist/index.d.ts"],
       "@tstsx/combined": ["../react/combined/dist/index.d.ts"],
       "@tstsx/exception-boundary": ["../react/exception-boundary/dist/index.d.ts"],
       "@tstsx/init": ["../react/init/dist/index.d.ts"],

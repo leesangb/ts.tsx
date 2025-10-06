@@ -1,0 +1,38 @@
+{
+  "name": "@tstsx/collections",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "type": "module",
+  "author": "Sangbin Lee <leesangbin@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leesangb/ts.tsx.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "clean": "rm -rf .turbo dist",
+    "dev": "vitest",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "catalog:core",
+    "vite": "catalog:tools",
+    "vite-plugin-dts": "catalog:tools",
+    "vitest": "catalog:test"
+  }
+}
