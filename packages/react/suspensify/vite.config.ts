@@ -6,8 +6,7 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      include: ['src'],
-      exclude: ['src/*.test.tsx', 'src/test', 'src/*.stories.tsx'],
+      tsconfigPath: './tsconfig.build.json',
     }),
   ],
   build: {
