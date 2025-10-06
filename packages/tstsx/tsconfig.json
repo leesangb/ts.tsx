@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "paths": {
+      "@tstsx/exception-boundary": ["../react/exception-boundary/src"],
+      "@tstsx/init": ["../react/init/src"],
+      "@tstsx/stack-navigation": ["../react/stack-navigation/src"],
+      "@tstsx/object-diff": ["../vanilla/object-diff/src"]
+    }
+  },
+  "include": ["src"]
+}

@@ -16,6 +16,9 @@ catalogs:
     '@types/react-dom':
       specifier: ^18.3.5
       version: 18.3.5
+    react:
+      specifier: ^18.3.1
+      version: 18.3.1
   test:
     '@testing-library/dom':
       specifier: ^10.4.1
@@ -44,7 +47,7 @@ catalogs:
       version: 5.0.4
     vite:
       specifier: ^7.1.9
-      version: 7.1.9
+      version: 6.3.6
     vite-plugin-dts:
       specifier: ^4.5.4
       version: 4.5.4
@@ -56,6 +59,9 @@ importers:
       '@biomejs/biome':
         specifier: catalog:tools
         version: 2.2.5
+      husky:
+        specifier: ^9.1.7
+        version: 9.1.7
       turbo:
         specifier: ^2.5.8
         version: 2.5.8
@@ -200,6 +206,37 @@ importers:
       vitest:
         specifier: catalog:test
         version: 3.2.4(jsdom@27.0.0(postcss@8.5.6))
+
+  packages/tstsx:
+    dependencies:
+      '@tstsx/exception-boundary':
+        specifier: workspace:*
+        version: link:../react/exception-boundary
+      '@tstsx/init':
+        specifier: workspace:*
+        version: link:../react/init
+      '@tstsx/object-diff':
+        specifier: workspace:*
+        version: link:../vanilla/object-diff
+      '@tstsx/stack-navigation':
+        specifier: workspace:*
+        version: link:../react/stack-navigation
+    devDependencies:
+      '@types/react':
+        specifier: catalog:react18
+        version: 18.3.18
+      react:
+        specifier: catalog:react18
+        version: 18.3.1
+      typescript:
+        specifier: catalog:core
+        version: 5.9.3
+      vite:
+        specifier: catalog:tools
+        version: 6.3.6
+      vite-plugin-dts:
+        specifier: catalog:tools
+        version: 4.5.4(rollup@4.52.4)(typescript@5.9.3)(vite@6.3.6)
 
   packages/vanilla/object-diff:
     devDependencies:
@@ -1105,6 +1142,11 @@ packages:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
     engines: {node: '>= 14'}
 
+  husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
@@ -1483,6 +1525,46 @@ packages:
       vite: '*'
     peerDependenciesMeta:
       vite:
+        optional: true
+
+  vite@6.3.6:
+    resolution: {integrity: sha512-0msEVHJEScQbhkbVTb/4iHZdJ6SXp/AvxL2sjwYQFfBqleHtnCqv1J3sa9zbWz/6kW1m9Tfzn92vW+kZ1WV6QA==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
+      jiti: '>=1.21.0'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.16.0
+      tsx: ^4.8.1
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      jiti:
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+      tsx:
+        optional: true
+      yaml:
         optional: true
 
   vite@7.1.9:
@@ -2438,6 +2520,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  husky@9.1.7: {}
+
   iconv-lite@0.6.3:
     dependencies:
       safer-buffer: 2.1.2
@@ -2788,7 +2872,7 @@ snapshots:
       debug: 4.4.3
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 7.1.9
+      vite: 6.3.6
     transitivePeerDependencies:
       - '@types/node'
       - jiti
@@ -2802,6 +2886,25 @@ snapshots:
       - terser
       - tsx
       - yaml
+
+  vite-plugin-dts@4.5.4(rollup@4.52.4)(typescript@5.9.3)(vite@6.3.6):
+    dependencies:
+      '@microsoft/api-extractor': 7.53.0
+      '@rollup/pluginutils': 5.1.4(rollup@4.52.4)
+      '@volar/typescript': 2.4.11
+      '@vue/language-core': 2.2.0(typescript@5.9.3)
+      compare-versions: 6.1.1
+      debug: 4.4.3
+      kolorist: 1.8.0
+      local-pkg: 1.1.2
+      magic-string: 0.30.19
+      typescript: 5.9.3
+    optionalDependencies:
+      vite: 6.3.6
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
 
   vite-plugin-dts@4.5.4(rollup@4.52.4)(typescript@5.9.3)(vite@7.1.9):
     dependencies:
@@ -2821,6 +2924,17 @@ snapshots:
       - '@types/node'
       - rollup
       - supports-color
+
+  vite@6.3.6:
+    dependencies:
+      esbuild: 0.25.0
+      fdir: 6.5.0(picomatch@4.0.3)
+      picomatch: 4.0.3
+      postcss: 8.5.6
+      rollup: 4.52.4
+      tinyglobby: 0.2.15
+    optionalDependencies:
+      fsevents: 2.3.3
 
   vite@7.1.9:
     dependencies:

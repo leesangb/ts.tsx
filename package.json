@@ -11,10 +11,12 @@
     "format": "biome format --write .",
     "check": "biome check .",
     "create-package": "node scripts/create-package.mjs",
-    "postcreate-package": "pnpm i"
+    "postcreate-package": "pnpm i",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:tools",
+    "husky": "^9.1.7",
     "turbo": "^2.5.8",
     "vitest": "catalog:test"
   },
